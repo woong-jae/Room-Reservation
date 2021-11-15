@@ -20,6 +20,8 @@ nav {
 	font-weight: 500;
 	font-size: 16px;
 	cursor: pointer;
+	text-decoration: none;
+    color: black;
 }
 .nav-item:hover {
 	background: #fafafa;
@@ -40,11 +42,11 @@ nav {
 </style>
 
 <nav>
-	<div class="nav-item" id="nav-logo"><a href="./main.jsp">로고</a></div>
+	<a href="./main.jsp" class="nav-item" id="nav-logo">로고</a>
 	<div id="nav-wrapper">
-		<div class="nav-item">공지사항</div>
-		<div class="nav-item">문의사항</div>
-		<div class="nav-item">마이페이지</div>
-		<div class="nav-item" id="nav-login">로그인</div>
+		<a href="./notice.jsp" class="nav-item">공지사항</a>
+		<a href="./report.jsp" class="nav-item">문의사항</a>
+		<a href="./myPage.jsp" class="nav-item">마이페이지</a>
+		<a class="nav-item" id="nav-login">로그인</a>
 	</div>
 </nav>

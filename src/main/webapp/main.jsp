@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html lang="ko" style="height: 100%;">
+<html lang="ko">
 <head>
 <title>Insert title here</title>
+<link rel="stylesheet" href="./style/globalStyle.css">
 <style type="text/css">
 #main-middle {
 	height: 70%;
@@ -30,7 +31,7 @@
 }
 </style>
 </head>
-<body style="margin: 0;height: 100%;">
+<body>
 <%@ include file="./navbar.jsp" %>
 <div id="main-middle">
 	<button id="nav-room">강의실 예약 ➜</button>

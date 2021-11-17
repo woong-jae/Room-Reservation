@@ -35,6 +35,7 @@
 <%@ include file="./navbar.jsp" %>
 <div id="main-middle">
 	<button id="nav-room">강의실 예약 ➜</button>
+	<% if(session.getAttribute("managerid") != null) out.println("매니저님 안녕하세요");%>
 </div>
 <footer></footer>
 </body>

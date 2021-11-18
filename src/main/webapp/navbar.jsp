@@ -37,7 +37,8 @@ nav {
     height: 40px;
     width: 100px;
     border: 1px solid lightgray;
-    margin-left: 100px;
+    margin-left: 50px;
+    margin-right: 80px;
 }
 </style>
 

@@ -6,60 +6,54 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="./style/globalStyle.css">
-<style type="text/css">
-#title {
-	display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    font-weight: 500;
-	height: 130px;
-	background: #f0f0f0;
-}
-#report-wrapper {
-	display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-table {
-	border-bottom: 1px solid lightgray;
-	border-top: 1px solid;
-	border-collapse: collapse;
-    border-spacing: 0;
-}
-th, td {
-	padding: 15px;
-	border-bottom: 1px solid lightgray;
-}
+<style>
+	#title {
+		display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    font-size: 1.5em;
+	    font-weight: 500;
+		height: 130px;
+		background: #f0f0f0;
+	}
+	#search {
+		margin-top: 20px;
+		display: flex;
+		width: 300px;
+	    justify-content: space-around;
+	}
+	#search input {
+		width: 200px;
+	    height: 30px;
+	    padding: 7px;
+	    border-radius: 4px;
+	}
+	#search button {
+		width: 50px;
+		height: 48px;
+		padding: 7px;
+		background: #464646;
+		color: white;
+		cursor: pointer;
+		border-radious: 4px;
+		border-radius: 4px;
+	    border: none;
+	}
+	#search button:hover {
+		background: #353535;
+	}
 </style>
 </head>
 <body>
 <%@ include file="./navbar.jsp" %>
 <div id="title">문의사항</div>
-<div id="report-wrapper">
-	<table>
-		<colgroup>
-			<col width="70px">
-			<col width="600px">
-			<col width="160px">
-			<col width="160px">
-		</colgroup>
-		<thead>
-			<tr>
-				<th colspan="1">번호</th>
-				<th colspan="1">제목</th>
-				<th colspan="1">등록일</th>
-				<th colspan="1">작성자</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td colspan="4">
-					<div style="text-align: center;">등록된 내용이 없습니다.</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
+<div style="display:flex;justify-content: center;">
+	<form method="post" action="./report.jsp" id="search">
+		<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+		<button type="submit">검색</button>
+	</form>
 </div>
+<%@ include file="./report/reportList.jsp" %>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

@@ -6,6 +6,7 @@
 		flex-direction: column;
 	    align-items: center;
 	    margin-top: 30px;
+	    min-height: 340px;
 	}
 	#notice-table {
 		border-bottom: 1px solid lightgray;

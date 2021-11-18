@@ -28,7 +28,7 @@
 .mypage-contents {
 	display: flex;	
 	flex-direction: column;
-	margin-top: 70px;
+	margin: 70px 0 30px 0;
     padding: 20px;
     height: 300px;
     border: 1px solid lightgray;

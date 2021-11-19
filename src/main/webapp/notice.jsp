@@ -53,7 +53,7 @@
 		<button type="submit">검색</button>
 	</form>
 </div>
-<%@ include file="./notice/noticeList.jsp" %>
+<%@ include file="./noticeList.jsp" %>
 <%@ include file="./footer.jsp" %>
 </body>
 </html>

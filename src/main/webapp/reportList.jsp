@@ -29,7 +29,7 @@
 	}
 </style>
 
-<%@ include file="../connectDB.jsp" %>
+<%@ include file="./connectDB.jsp" %>
 <div id="report-wrapper">
 	<table id="report-table">
 		<colgroup>

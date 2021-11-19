@@ -49,8 +49,8 @@
 	String NContent = "";
 	String WrittenTime = "";
 %>
-<%@ include file="../connectDB.jsp" %>
-<%@ include file="../navbar.jsp" %>
+<%@ include file="./connectDB.jsp" %>
+<%@ include file="./navbar.jsp" %>
 <div id="title">공지사항</div>
 <%
 	NoticeId = request.getParameter("NoticeId");

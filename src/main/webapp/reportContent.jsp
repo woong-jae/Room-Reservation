@@ -38,6 +38,7 @@
 #report-content {
 	padding: 20px;
 	height: 290px;
+	word-break: break-all;
 }
 </style>
 </head>
@@ -49,8 +50,8 @@
 	String RContent = "";
 	String RTime = "";
 %>
-<%@ include file="../connectDB.jsp" %>
-<%@ include file="../navbar.jsp" %>
+<%@ include file="./connectDB.jsp" %>
+<%@ include file="./navbar.jsp" %>
 <div id="title">문의사항</div>
 <%
 	ReportId = request.getParameter("ReportId");

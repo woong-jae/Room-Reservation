@@ -81,14 +81,14 @@
 				<h2>공지사항</h2>
 				<a href="./notice.jsp"><button>+</button></a>
 			</div>
-			<jsp:include page="./notice/noticeList.jsp" />
+			<jsp:include page="./noticeList.jsp" />
 		</div>
 		<div class="widget-item">
 			<div class="widget-title">
 				<h2>문의사항</h2>
 				<a href="./report.jsp"><button>+</button></a>
 			</div>
-			<jsp:include page="./report/reportList.jsp" />
+			<jsp:include page="./reportList.jsp" />
 		</div>
 	</div>
 </div>

@@ -32,11 +32,11 @@
 	    border: 1px solid lightgray;
 	}
 	#mypage-userInfo {
-		justify-content: space-evenly;
+		justify-content: space-around;
 		width: 300px;
 		display: flex;
     	flex-direction: column;
-    	height: 100%;
+    	height: 85%;
     	border-top: 1px solid;
 	}
 	#mypage-roomInfo {
@@ -59,14 +59,34 @@
 		color: #666;
 		text-align: center;
 	}
+	#pwd-btn {
+		border: none;
+   	 	border-radius: 4px;
+    	padding: 6px;
+    	background: #464646;
+		color: white;
+		cursor: pointer;
+	}
+	#pwd-btn:hover {
+		background: #353535;
+	}
 </style>
 </head>
 <body>
+<script type="text/javascript">
+	function openModal() {
+		var elems = document.getElementsByClassName("modal");
+		for (var i=0;i<elems.length;i+=1){
+			elems[i].style.display = 'block';
+		}
+	}
+</script>
 <%@ include file="./connectDB.jsp" %>
 <%!
 	String Name = "";
 	String StudentId = "";
 	String UserId = "";
+	String ManagerId = "";
 	String Department = "";
 	
 	String RoomNum = "";
@@ -77,11 +97,16 @@
 	String Date = "";
 %>
 <%
-	if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
+	if(session.getAttribute("userid") != null)
+		UserId = session.getAttribute("userid").toString();
+	else if(session.getAttribute("managerid") != null) {
+		out.println("<script>alert('관리자는 이용하실 수 없습니다.');</script>");
+		out.println("<script>location.href='main.jsp';</script>");	
+	}
+	else {
 		out.println("<script>alert('로그인을 하십시오.');</script>");
 		out.println("<script>location.href='main.jsp';</script>");
 	}
-	else UserId = session.getAttribute("userid").toString();
 %>
 <%
 	String sql = "SELECT Name, StudentId, Department FROM KNU_USER WHERE UserId = '" + UserId + "'";
@@ -96,6 +121,7 @@
 		System.err.println("sql error = " + e.getMessage());
 	}
 %>
+
 <%@ include file="./navbar.jsp" %>
 <div id="title">마이페이지</div>
 <div id="mypage">
@@ -107,6 +133,10 @@
 				<div><span>학번&nbsp;&nbsp;&nbsp; :</span><%= StudentId %></div>
 				<div><span>아이디 :</span><%= UserId %></div>
 				<div><span>학과&nbsp;&nbsp;&nbsp; :</span><%= Department %></div>
+				<%-- 
+					<div><button id="pwd-btn" onclick="openModal();">비밀번호 변경</button></div>
+					<jsp:include page="./changePwdModal.jsp" />
+				 --%>
 			</div>
 		</div>
 		<div id="mypage-roomInfo" class="mypage-contents">

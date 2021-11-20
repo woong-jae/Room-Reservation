@@ -18,6 +18,7 @@
 	}
 	#search {
 		margin-top: 20px;
+		margin-left: 50px;
 		display: flex;
 		width: 300px;
 	    justify-content: space-around;
@@ -28,32 +29,58 @@
 	    padding: 7px;
 	    border-radius: 4px;
 	}
-	#search button {
+	button {
 		width: 50px;
 		height: 48px;
 		padding: 7px;
 		background: #464646;
 		color: white;
 		cursor: pointer;
-		border-radious: 4px;
 		border-radius: 4px;
 	    border: none;
 	}
 	#search button:hover {
 		background: #353535;
 	}
+	#write {
+	    position: relative;
+	    left: 295px;
+	    height: 30px;
+	    background: #b41a1f;
+	}
+	#write:hover {
+		background: #951418;
+	}
 </style>
 </head>
+<script type="text/javascript">
+	function openModal(){
+		var elems = document.getElementsByClassName("modal");
+		for (var i=0;i<elems.length;i+=1){
+			elems[i].style.display = 'block';
+		}
+	}
+	function hideModalBtn(){
+		document.getElementById("write").style.display = 'none';
+	}
+</script>
 <body>
 <%@ include file="./navbar.jsp" %>
 <div id="title">공지사항</div>
-<div style="display:flex;justify-content: center;">
+<div style="display:flex;justify-content: center;align-items: flex-end;">
 	<form method="post" action="./notice.jsp" id="search">
 		<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
 		<button type="submit">검색</button>
 	</form>
+	<button id="write" onclick="openModal();">작성</button>
+	<jsp:include page="./noticeWriteModal.jsp" />
 </div>
 <%@ include file="./noticeList.jsp" %>
 <%@ include file="./footer.jsp" %>
+<%
+	if(session.getAttribute("managerid") == null) { 
+		out.println("<script>hideModalBtn();</script>");
+	}
+%>
 </body>
 </html>

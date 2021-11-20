@@ -18,6 +18,7 @@
 	}
 	#search {
 		margin-top: 20px;
+		margin-left: 50px;
 		display: flex;
 		width: 300px;
 	    justify-content: space-around;
@@ -43,7 +44,7 @@
 	}
 	#write {
 	    position: relative;
-	    left: 315px;
+	    left: 295px;
 	    height: 30px;
 	    background: #b41a1f;
 	}

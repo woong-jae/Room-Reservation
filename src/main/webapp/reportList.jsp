@@ -55,7 +55,8 @@
 				sql = "SELECT ReportId, RTitle, RTime, ReportUid FROM REPORT ORDER BY RTime DESC";
 			else {
 				sql = "SELECT ReportId, RTitle, RTime, ReportUid FROM REPORT " 
-					+ "WHERE RContent LIKE '%" + keyword + "%' OR RTitle LIKE '%" + keyword + "%' ORDER BY RTime DESC";
+					+ "WHERE RContent LIKE '%" + keyword + "%' OR RTitle LIKE '%" + keyword 
+					+ "%' OR ReportUid LIKE '%" + keyword + "%' ORDER BY RTime DESC";
 			}
 			try{
 				rs = stmt.executeQuery(sql);

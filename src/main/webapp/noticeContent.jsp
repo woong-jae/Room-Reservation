@@ -37,11 +37,17 @@
 }
 #notice-content {
 	padding: 20px;
-	height: 290px;
+	height: 250px;
 }
 </style>
 </head>
 <body>
+<script type="text/javascript">
+	function hideModalBtn(){
+		document.getElementById("update-notice").style.display = 'none';
+		document.getElementById("delete-notice").style.display = 'none';
+	}
+</script>
 <%!
 	String NoticeId = "";
 	String NoticeMid = "";
@@ -68,6 +74,7 @@
 	}
 %>
 
+
 <div id="wrapper">
 	<div id="notice">
 		<h3 style="padding-left: 15px;"><%= NTitle %></h3>
@@ -76,7 +83,16 @@
 			<div style="margin-left: 50px;"><span>등록일</span><%= WrittenTime %></div>
 		</div>
 		<div id="notice-content"><%= NContent %></div>
+		<div style="margin-bottom: 10px;text-align: end;">
+			<button id="update-notice">수정</button>
+			<button id="delete-notice">삭제</button>
+		</div>
 	</div>
 </div>
+<%
+	if(session.getAttribute("managerid") == null) { 
+		out.println("<script>hideModalBtn();</script>");
+	}
+%>
 </body>
 </html>

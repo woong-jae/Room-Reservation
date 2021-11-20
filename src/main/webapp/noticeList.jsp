@@ -6,7 +6,6 @@
 		flex-direction: column;
 	    align-items: center;
 	    margin-top: 30px;
-	    min-height: 340px;
 	}
 	#notice-table {
 		border-bottom: 1px solid lightgray;
@@ -29,7 +28,7 @@
 	}
 </style>
 
-<%@ include file="../connectDB.jsp" %>
+<%@ include file="./connectDB.jsp" %>
 <div id="notice-wrapper">
 	<table id="notice-table">
 		<colgroup>
@@ -55,7 +54,8 @@
 				sql = "SELECT NoticeId, NTitle, WrittenTime, NoticeMid FROM NOTICE ORDER BY WrittenTime DESC";
 			else {
 				sql = "SELECT NoticeId, NTitle, WrittenTime, NoticeMid FROM NOTICE " 
-					+ "WHERE NContent LIKE '%" + keyword + "%' OR NTitle LIKE '%" + keyword + "%' ORDER BY WrittenTime DESC";
+					+ "WHERE NContent LIKE '%" + keyword + "%' OR NTitle LIKE '%" + keyword + "%' "
+					+ "OR NoticeMid LIKE '%" + keyword + "%' ORDER BY WrittenTime DESC";
 			}
 			try{
 				rs = stmt.executeQuery(sql);

@@ -17,22 +17,21 @@
 	background-color: #eee;
 	color: #444;
 	cursor: pointer;
-	width: 100%;
 	display: flex;
 	justify-content: center;
 	padding: 18px;
+	width: 100%;
 	border: none;
 	outline: none;
 	transition: 0.4s;
 }
 
 .active, .accordion:hover {
-	background-color: #ccc;
+	color: whitesmoke;
+	background-color: rgb(193, 55, 54);
 }
 
 .panel {
-	padding: 0 18px;
-	font-size: 1.2rem;
 	background-color: white;
 	max-height: 0;
 	overflow: hidden;
@@ -40,8 +39,26 @@
 }
 
 .panel-item {
+	font-size: 1.2rem;
 	display: flex;
 	justify-content: space-evenly;
+	width: 100%;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	background-color: #fff;
+}
+button.panel-item:hover {
+	background-color: bisque;
+}
+
+.panel-item:not(:last-child) {
+	border-bottom: solid 1px;
+}
+
+.panel-item-navail {
+	font-size: 1.2rem;
+	text-align: center;
 }
 
 .button-label {
@@ -49,16 +66,62 @@
 	font-size: 1.3rem;
 }
 
-/* .button-label:not(:last-child) {
-	border-right: solid 1px;
-} */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 700px; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
+<script>
+	window.onpageshow = function(event) {
+    	if ( event.persisted || (window.performance && window.performance.navigation.type == 2)) {
+			window.location.reload();
+    	}
+	}
+</script>
 </head>
 <body>
 <%@ include file="./navbar.jsp" %>
 <%@ include file="./connectDB.jsp" %>
+<%!
+	String uid;
+%>
 <div class="room-container">
 	<% 
+		if(session.getAttribute("userid") != null)
+			uid = session.getAttribute("userid").toString();
+
 		class Timeline {
 			public int timelineId;
 			public int start;
@@ -138,24 +201,46 @@
 		for (int i = 0; i < rooms.size(); i++) {
 			out.println("<button class=\"accordion\">");
 			out.println("<div class=\"button-label\">" + rooms.get(i).roomNo + "호</div>");
-			out.println("<div class=\"button-label\">" + rooms.get(i).classification + "</div>");
+			out.println("<div class=\"button-label\">");
+			switch (rooms.get(i).classification) {
+				case "Large": out.println("대형 강의실");
+					break;
+				case "Normal": out.println("강의실");
+					break;
+				case "Lab": out.println("실습실");
+					break;
+				default: out.println("Unknown");
+			}
+			out.println("</div>");
 			out.println("</button>");
 			
 			out.println("<div class=\"panel\">");
 			if (rooms.get(i).timelines.size() == 0) {
-				out.println("<div class=\"panel-item\"><p>예약 가능한 시간대가 없습니다</p></div>");
+				out.println("<p class='panel-item-navail'>예약 가능한 시간대가 없습니다.</p>");
 			}
 			else {
 				for (int j = 0; j < rooms.get(i).timelines.size(); j++) {
-					out.println("<div class=\"panel-item\"><p>" + rooms.get(i).timelines.get(j).start + " ~ " + rooms.get(i).timelines.get(j).end + "</p><p>예약 현황: " + rooms.get(i).timelines.get(j).currentReserved + "/" + rooms.get(i).maxAvail + "</p></div>");
+					out.println("<button class=\"panel-item\" value='" + rooms.get(i).timelines.get(j).timelineId + "'><p>" + rooms.get(i).timelines.get(j).start + " ~ " + rooms.get(i).timelines.get(j).end + "</p><p>예약 현황: " + rooms.get(i).timelines.get(j).currentReserved + "/" + rooms.get(i).maxAvail + "</p></button>");
 				}	
 			}
 			out.println("</div>");	
 		}
 	%>
 </div>
+
+<!-- Modal -->
+<div id="myModal" class="modal">
+
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Some text in the Modal..</p>
+  </div>
+
+</div>
+
 <%@ include file="./footer.jsp" %>
 <script type="text/javascript">
+	/* 아코디언 */
 	var acc = document.getElementsByClassName("accordion");
 	var i;
 	
@@ -170,6 +255,39 @@
 	    }
 	  });
 	}
+	
+	/* 모달 */
+	var modal = document.getElementById("myModal");
+	var span = document.getElementsByClassName("close")[0];
+	var btn = document.getElementsByClassName("panel-item");
+	
+	for (i = 0; i < btn.length; i++) {
+		btn[i].addEventListener("click", function(elem) {
+			if (<%= uid != null ? "'" + uid + "'" : null %>) {
+				modal.style.display = "block";
+				var content = document.getElementsByClassName("modal-content");
+				if (elem.target.className) {
+					content[0].getElementsByTagName("p")[0].innerText = "timelineRno =" + elem.target.value;	
+				} else {
+					content[0].getElementsByTagName("p")[0].innerText = "timelineRno =" + elem.target.parentNode.value;
+				}
+			} else {
+				window.alert("로그인을 하십시오.");
+				location.href="login.jsp";
+			}
+		})
+	}
+	
+	span.onclick = function() {
+		modal.style.display = "none";	
+	}
+
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+	
 </script>
 </body>
 </html>

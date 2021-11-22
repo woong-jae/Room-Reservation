@@ -1,50 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ page language="java" import="java.time.*, java.time.format.*" %>
-<style>
-	/* The Modal (background) */
-	.modal {
-	    display: none; /* Hidden by default */
-	    position: fixed; /* Stay in place */
-	    z-index: 1; /* Sit on top */
-	    left: 0;
-	    top: 0;
-	    width: 100%; /* Full width */
-	    height: 100%; /* Full height */
-	    overflow: auto; /* Enable scroll if needed */
-	    background-color: rgb(0,0,0); /* Fallback color */
-	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	}
-	
-	/* Modal Content/Box */
-	#modal-content {
-	    background-color: #fefefe;
-	    margin: 15% auto; /* 15% from the top and centered */
-	    padding: 20px;
-	    border: 1px solid #888;
-	    width: 30%; /* Could be more or less, depending on screen size */                          
-	}
-	#close-btn {
-		position: relative;
-    	left: 32%;
-    	width: 27px;
-    	height: 27px;
-	}	
-	#close-btn:hover {
-		background: #353535;
-	}
-	#submit-btn {
-		cursor:pointer;
-		background-color:#bcbcbc;
-		text-align: center;
-		padding-bottom: 10px;
-		padding-top: 10px;
-		width: 100%;
-	}
-	#submit-btn:hover {
-		background-color: #b6b6b6;
-	}
-</style>
+<link rel="stylesheet" href="./style/modalStyle.css">
 
 <script type="text/javascript">
 	function closeModal(){
@@ -103,7 +60,7 @@
 	}
 %>
 
-<div id="myModal" class="modal">
+<div class="modal">
   <form id="modal-content" method="post" action="./notice.jsp" onsubmit="return checkForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;margin-left: 50px;">공지하기</span></b></span>

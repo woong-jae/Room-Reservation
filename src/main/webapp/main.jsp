@@ -6,12 +6,20 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="./style/globalStyle.css">
 <style type="text/css">
-	#main-middle {
+	#main-middle-background {
 		height: 70%;
 		display: flex;
 	   	justify-content: flex-end;
 	   	align-items: center;
-	   	background: lightgray;
+	   	background: url('./image/KNU-Campus.png') center center / cover no-repeat;
+	}
+	#main-middle-wrapper {
+	   	width: 30%;
+	   	height: 100%;
+	   	display: flex;
+    	align-items: center;
+    	justify-content: center;
+	   	background: rgba(0, 0, 0, 0.5);
 	}
 	#nav-room {
 		width: 200px;
@@ -23,7 +31,6 @@
 	    font-size: 1.3em;
 	    font-weight: 700;
 	    cursor: pointer;
-	    margin-right: 200px;
 	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	}
 	#nav-room:hover {
@@ -37,7 +44,7 @@
 		display: flex;
 		justify-content: space-between;
 		margin-top: 40px;
-		width: 90%;
+		width: 95%;
 	}
 	.widget-item {
 		width: 42%;
@@ -70,11 +77,13 @@
 </head>
 <body>
 <%@ include file="./navbar.jsp" %>
-<div id="main-middle">
-	<a href="./rooms.jsp">
-		<button id="nav-room">강의실 예약 ➜</button>
-	</a>
-	<% if(session.getAttribute("managerid") != null) out.println("매니저님 안녕하세요");%>
+<div id="main-middle-background">
+	<div id="main-middle-wrapper">
+		<a href="./rooms.jsp">
+			<button id="nav-room">강의실 예약 ➜</button>
+		</a>
+		<% if(session.getAttribute("managerid") != null) out.println("매니저님 안녕하세요");%>
+	</div>
 </div>
 <div id="widget-wrapper">
 	<div id="widget">

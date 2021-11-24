@@ -133,7 +133,7 @@
 			<div style="margin-left: 50px;"><span>등록일</span><%= RTime %></div>
 		</div>
 		<div class="report-content"><%= RContent %></div>
-		<div style="margin-bottom: 10px;text-align: end;">
+		<div style="width:100%;margin-bottom: 10px;text-align: right;">
 			<button id="answer-btn" type='submit' onclick="openAnswerModal();"><%
 				if(ReportMid == null) out.println("답변");
 				else out.println("답변 수정");
@@ -165,7 +165,7 @@
         	<button type="button" id="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
-         	내용:
+         	<div style="width:100%;margin-bottom: 5px;text-align: left;">내용:</div>
          	<div style="width: 100%;margin-bottom: 20px;">
          		<textarea style="width: 100%;height: 150px;resize: none;" name="RAnswer" id="RAnswer"><% 
          			if(RAnswer != null) out.println(RAnswer);

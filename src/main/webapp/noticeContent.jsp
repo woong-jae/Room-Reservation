@@ -182,10 +182,10 @@
         	<button type="button" id="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
-         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: center;">
-         		제목: <input type="text" style="width: 89%;margin-left: 6px;" name="NTitle" id="NTitle" value="<%= NTitle %>">
+         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
+         		<div>제목:</div> <input type="text" style="width: 89%;margin-left: 6px;" name="NTitle" id="NTitle" value="<%= NTitle %>">
          	</div>
-         	내용:
+         	<div style="width: 100%;margin-bottom: 5px;text-align: left;">내용:</div>
          	<div style="width: 100%;margin-bottom: 20px;">
          		<textarea style="width: 100%;height: 150px;resize: none;" name="NContent" id="NContent"><%= NContent %></textarea>
          	</div>

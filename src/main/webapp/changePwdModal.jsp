@@ -1,49 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<style>
-	/* The Modal (background) */
-	.modal {
-	    display: none; /* Hidden by default */
-	    position: fixed; /* Stay in place */
-	    z-index: 1; /* Sit on top */
-	    left: 0;
-	    top: 0;
-	    width: 100%; /* Full width */
-	    height: 100%; /* Full height */
-	    overflow: auto; /* Enable scroll if needed */
-	    background-color: rgb(0,0,0); /* Fallback color */
-	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-	}
-	
-	/* Modal Content/Box */
-	#modal-content {
-	    background-color: #fefefe;
-	    margin: 15% auto; /* 15% from the top and centered */
-	    padding: 20px;
-	    border: 1px solid #888;
-	    width: 30%; /* Could be more or less, depending on screen size */                          
-	}
-	#close-btn {
-		position: relative;
-    	left: 32%;
-    	width: 27px;
-    	height: 27px;
-	}	
-	#close-btn:hover {
-		background: #353535;
-	}
-	#submit-btn {
-		cursor:pointer;
-		background-color:#bcbcbc;
-		text-align: center;
-		padding-bottom: 10px;
-		padding-top: 10px;
-		width: 100%;
-	}
-	#submit-btn:hover {
-		background-color: #b6b6b6;
-	}
-</style>
+<link rel="stylesheet" href="./style/modalStyle.css">
 
 <script type="text/javascript">
 	function closeModal(){
@@ -54,12 +11,17 @@
 	}
 	function checkForm(){
 		var Password = document.getElementById('password');
+		var CheckPwd = document.getElementById('checkPwd');
 	    if(Password.value == '') {
 	        window.alert("새 비밀번호를 입력하세요.");
 	        return false;
 	    }
 	    else if (Password.value.length > 15) {
 	    	window.alert("비밀번호는 16자리 미만이어야 합니다.");
+		    return false;
+	    }
+	    else if (Password != CheckPwd) {
+	    	window.alert("비밀번호 확인이 일치하지 않습니다.");
 		    return false;
 	    }
 	}
@@ -88,13 +50,17 @@
 <div id="myModal" class="modal">
   <form id="modal-content" method="post" action="./myPage.jsp" onsubmit="return checkForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
-        	<b><span style="font-size: 14pt;margin-left: 50px;">비밀번호 변경</span></b></span>
+        	<b><span style="font-size: 14pt;">비밀번호 변경</span></b></span>
         	<button type="button" id="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
-         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: center;">
-         		새 비밀번호: <input type="password" style="width: 89%;margin-left: 6px;" 
-         						name="Password" id="password">
+         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
+         		<div>새 비밀번호:</div>
+         		<input type="password" style="width: 73%;margin-left: auto;" name="Password" id="password">
+         	</div>
+         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
+         		<div>비밀번호 확인:</div>
+         		<input type="password" style="width: 73%;margin-left: auto;" id="checkPwd">
          	</div>
         </div>
         <button id="submit-btn" type="submit">

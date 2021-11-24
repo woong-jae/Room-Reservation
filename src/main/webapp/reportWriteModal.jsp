@@ -4,7 +4,24 @@
 <link rel="stylesheet" href="./style/modalStyle.css">
 
 <script type="text/javascript">
-
+	function closeModal(){
+		var elems = document.getElementsByClassName("modal");
+		for (var i=0;i<elems.length;i+=1){
+			elems[i].style.display = 'none';
+		}
+	}
+	function checkForm(){
+		var RTitle = document.getElementById('RTitle');
+	    if(RTitle.value == '') {
+	        window.alert("제목을 입력하세요");
+	        return false;
+	    }
+	    var RContent = document.getElementById('RContent');
+	    if(RContent.value == ''){
+	    	window.alert('내용을 입력하세요.');
+	        return false;
+	    }
+	}
 </script>
 
 <%@ include file="./connectDB.jsp" %>
@@ -50,10 +67,10 @@
         	<button type="button" id="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
-         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: center;">
-         		제목: <input type="text" style="width: 89%;margin-left: 6px;" name="RTitle" id="RTitle">
+         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
+         		<div>제목:</div><input type="text" style="width: 89%;margin-left: auto;" name="RTitle" id="RTitle">
          	</div>
-         	내용:
+         	<div style="width: 100%;margin-bottom: 5px;text-align: left;">내용:</div>
          	<div style="width: 100%;margin-bottom: 20px;">
          		<textarea style="width: 100%;height: 150px;resize: none;" name="RContent" id="RContent"></textarea>
          	</div>

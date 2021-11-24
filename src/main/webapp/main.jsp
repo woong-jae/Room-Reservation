@@ -37,7 +37,7 @@
 		display: flex;
 		justify-content: space-between;
 		margin-top: 40px;
-		width: 80%;
+		width: 90%;
 	}
 	.widget-item {
 		width: 42%;

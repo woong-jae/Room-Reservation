@@ -45,7 +45,6 @@
 	}
 	span {
 		font-weight: bold;
-		margin-right: 30px;
 	}
 	#reserve-table {
 		border-bottom: 1px solid lightgray;
@@ -58,17 +57,6 @@
 		border-bottom: 1px solid lightgray;
 		color: #666;
 		text-align: center;
-	}
-	#pwd-btn {
-		border: none;
-   	 	border-radius: 4px;
-    	padding: 6px;
-    	background: #464646;
-		color: white;
-		cursor: pointer;
-	}
-	#pwd-btn:hover {
-		background: #353535;
 	}
 </style>
 </head>
@@ -129,14 +117,12 @@
 		<div class="mypage-contents">
 			<h3 style="text-align:center;margin-top: 0;">내 정보</h3>
 			<div id="mypage-userInfo">
-				<div><span>이름&nbsp;&nbsp;&nbsp; :</span><%= Name %></div>
-				<div><span>학번&nbsp;&nbsp;&nbsp; :</span><%= StudentId %></div>
-				<div><span>아이디 :</span><%= UserId %></div>
-				<div><span>학과&nbsp;&nbsp;&nbsp; :</span><%= Department %></div>
-				<%-- 
-					<div><button id="pwd-btn" onclick="openModal();">비밀번호 변경</button></div>
-					<jsp:include page="./changePwdModal.jsp" />
-				 --%>
+				<div><span>이름&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Name %></div>
+				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= StudentId %></div>
+				<div><span>아이디 :&nbsp;&nbsp;&nbsp;</span><%= UserId %></div>
+				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Department %></div>
+				<div><button id="pwd-btn" onclick="openModal();">비밀번호 변경</button></div>
+				<jsp:include page="./changePwdModal.jsp" />
 			</div>
 		</div>
 		<div id="mypage-roomInfo" class="mypage-contents">

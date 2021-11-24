@@ -29,15 +29,9 @@
 	    padding: 7px;
 	    border-radius: 4px;
 	}
-	button {
-		width: 50px;
-		height: 48px;
-		padding: 7px;
-		background: #464646;
-		color: white;
-		cursor: pointer;
-		border-radius: 4px;
-	    border: none;
+	#search button {
+		height: auto !important;
+    	width: 55px !important;
 	}
 	#search button:hover {
 		background: #353535;

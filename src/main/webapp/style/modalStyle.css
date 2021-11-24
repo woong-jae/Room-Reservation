@@ -50,3 +50,6 @@
 		border-radius: 4px;
 	    border: none;
 	}
+	button:hover {
+		background: #353535;
+	}

@@ -41,8 +41,8 @@
 		background-color: #b6b6b6;
 	}
 	button {
-		width: 50px;
-		height: 48px;
+		width: fit-content;
+		height: fit-content;
 		padding: 7px;
 		background: #464646;
 		color: white;

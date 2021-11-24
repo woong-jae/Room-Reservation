@@ -30,6 +30,7 @@
 </style>
 
 <%@ include file="./connectDB.jsp" %>
+<%!  String ReportMid = ""; %>
 <div id="report-wrapper">
 	<table id="report-table">
 		<colgroup>
@@ -52,9 +53,9 @@
 			String sql = "";
 			String keyword = request.getParameter("keyword");
 			if (keyword == null || keyword == "")
-				sql = "SELECT ReportId, RTitle, RTime, ReportUid FROM REPORT ORDER BY RTime DESC";
+				sql = "SELECT ReportMid, ReportId, RTitle, RTime, ReportUid FROM REPORT ORDER BY RTime DESC";
 			else {
-				sql = "SELECT ReportId, RTitle, RTime, ReportUid FROM REPORT " 
+				sql = "SELECT ReportMid, ReportId, RTitle, RTime, ReportUid FROM REPORT " 
 					+ "WHERE RContent LIKE '%" + keyword + "%' OR RTitle LIKE '%" + keyword 
 					+ "%' OR ReportUid LIKE '%" + keyword + "%' ORDER BY RTime DESC";
 			}
@@ -62,12 +63,16 @@
 				rs = stmt.executeQuery(sql);
 				int count = 0;
 				while(rs.next()){
+					ReportMid = rs.getString(1);
 					count += 1;
 					out.println("<tr class='report-item'>");
-					for(int i=1;i<=4;i++) {
-						if (i == 2) 
+					for(int i=2;i<=5;i++) {
+						if (i == 3) {
+							String Rtitle = rs.getString(3);
+							if (ReportMid != null) Rtitle +=  "  <span style='font-weight: bold;color: #07ba07;'>✓</span>";
 							out.println("<td><a class='report-title' href='./reportContent.jsp?ReportId="
-								+ rs.getInt(1) + "'>"+rs.getString(2)+"</a></td>");
+								+ rs.getInt(2) + "'>"+Rtitle+"</a></td>");
+						}
 						else out.println("<td>"+rs.getString(i)+"</td>");
 					}
 					out.println(" </tr>");

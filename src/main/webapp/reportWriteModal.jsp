@@ -4,24 +4,7 @@
 <link rel="stylesheet" href="./style/modalStyle.css">
 
 <script type="text/javascript">
-	function closeModal(){
-		var elems = document.getElementsByClassName("modal");
-		for (var i=0;i<elems.length;i+=1){
-			elems[i].style.display = 'none';
-		}
-	}
-	function checkForm(){
-		var RTitle = document.getElementById('RTitle');
-	    if(RTitle.value == '') {
-	        window.alert("제목을 입력하세요");
-	        return false;
-	    }
-	    var RContent = document.getElementById('RContent');
-	    if(RContent.value == ''){
-	    	window.alert('내용을 입력하세요.');
-	        return false;
-	    }
-	}
+
 </script>
 
 <%@ include file="./connectDB.jsp" %>

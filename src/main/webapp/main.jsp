@@ -71,7 +71,9 @@
 <body>
 <%@ include file="./navbar.jsp" %>
 <div id="main-middle">
-	<button id="nav-room">강의실 예약 ➜</button>
+	<a href="./rooms.jsp">
+		<button id="nav-room">강의실 예약 ➜</button>
+	</a>
 	<% if(session.getAttribute("managerid") != null) out.println("매니저님 안녕하세요");%>
 </div>
 <div id="widget-wrapper">

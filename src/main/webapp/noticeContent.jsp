@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="./style/globalStyle.css">
 <link rel="stylesheet" href="./style/modalStyle.css">
 <style>
 	#title {
@@ -40,6 +41,7 @@
 	#notice-content {
 		padding: 20px;
 		height: 250px;
+		word-break: break-all;
 	}
 	#delete-notice, #update-notice {
 		height: 32px;
@@ -127,7 +129,7 @@
 			sql = "UPDATE NOTICE SET NTitle = '" + NTitle + "', NContent = '" + NContent + "', WrittenTime = TO_DATE('" + date
 					+ "', 'YYYY-MM-DD HH24:MI:SS') WHERE NoticeId = " + NoticeId;
 			stmt.executeUpdate(sql);
-			out.println("<script>location.href='noticeContent.jsp?NoticeId=" + NoticeId + ".jsp';</script>");
+			out.println("<script>location.href='noticeContent.jsp?NoticeId=" + NoticeId + "';</script>");
 		} catch (SQLException ex2) {
 			System.err.println("sql error = " + ex2.getMessage());
 		}
@@ -144,8 +146,8 @@
 		</div>
 		<div id="notice-content"><%= NContent %></div>
 		<div style="margin-bottom: 10px;text-align: end;">
-			<button id="update-notice" type='submit' onclick="openUpdateModal();">수정</button>
-			<button id="delete-notice" type='submit' onclick="openDeleteModal();">삭제</button>
+			<button id="update-notice" onclick="openUpdateModal();">수정</button>
+			<button id="delete-notice" onclick="openDeleteModal();">삭제</button>
 		</div>
 	</div>
 </div>
@@ -195,5 +197,6 @@
         </button>
   </form>
 </div>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

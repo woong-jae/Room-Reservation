@@ -3,8 +3,8 @@
 <link rel="stylesheet" href="./style/modalStyle.css">
 
 <script type="text/javascript">
-	function closeModal(){
-		var elems = document.getElementsByClassName("modal");
+	function closeModal(className){
+		var elems = document.getElementsByClassName(className);
 		for (var i=0;i<elems.length;i+=1){
 			elems[i].style.display = 'none';
 		}
@@ -46,12 +46,11 @@
 	}
 %>
 
-
 <div id="myModal" class="modal">
-  <form id="modal-content" method="post" action="./myPage.jsp" onsubmit="return checkForm();">
+  <form class="modal-content" method="post" action="./myPage.jsp" onsubmit="return checkForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">비밀번호 변경</span></b></span>
-        	<button type="button" id="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal('modal');">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
          	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
@@ -63,7 +62,7 @@
          		<input type="password" style="width: 73%;margin-left: auto;" id="checkPwd">
          	</div>
         </div>
-        <button id="submit-btn" type="submit">
+        <button class="submit-btn" type="submit">
             <span class="pop_bt" style="font-size: 13pt;" >
                  제출
             </span>

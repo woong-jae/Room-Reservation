@@ -58,7 +58,6 @@ nav {
 		<a href="./myPage.jsp" class="nav-item">마이페이지</a>
 		<%
 		if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
-			//나중에 user navbar랑 manager navbar 분리해도 괜찮을 듯
 		%>
 		<a href="./login.jsp" class="nav-item" id="nav-login">로그인</a>
 		<%

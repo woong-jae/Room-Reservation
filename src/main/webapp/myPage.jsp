@@ -71,8 +71,9 @@
 </head>
 <body>
 <script type="text/javascript">	
-	function openModal() {
-		var elems = document.getElementsByClassName("modal");
+	function openModal(className) {
+		var elems = document.getElementsByClassName(className);
+		console.log(className, elems, elems.length);
 		for (var i=0;i<elems.length;i+=1){
 			elems[i].style.display = 'block';
 		}
@@ -97,9 +98,9 @@
 	public void printRatingBtn(javax.servlet.jsp.JspWriter out) throws ServletException {
 		try {
 			if (RatingId == null)
-				out.println("<td><button class='no-rating' disabled>평가완료</button></td>");
+				out.println("<td><button class='no-rating' onclick=\"openModal('ratingmodal')\">평가하기</button></td>");
 			else 
-				out.println("<td><button class='rating'></td>");
+				out.println("<td><button class='rating' disabled>평가완료</button></td>");
 		} catch (Exception e){
 			System.err.println("error = " + e.getMessage());
 		}
@@ -120,7 +121,7 @@
 <%
 	String sql = "SELECT Name, StudentId, Department, RatingId" 
 			+ " FROM (SELECT * FROM KNU_USER LEFT OUTER JOIN RATING ON UserId = RateUid)"
-			+ "	WHERE USerId = 'puKcxQ'";
+			+ "	WHERE UserId = '" + UserId + "'";
 	try{
 		rs = stmt.executeQuery(sql);
 		rs.next();
@@ -145,10 +146,12 @@
 				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= StudentId %></div>
 				<div><span>아이디 :&nbsp;&nbsp;&nbsp;</span><%= UserId %></div>
 				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Department %></div>
-				<div><button id="pwd-btn" onclick="openModal();">비밀번호 변경</button></div>
+				<div><button id="pwd-btn" onclick="openModal('modal');">비밀번호 변경</button></div>
 				<jsp:include page="./changePwdModal.jsp" />
+				<jsp:include page="./writeRatingModal.jsp" />
 			</div>
 		</div>
+
 		<div id="mypage-roomInfo" class="mypage-contents">
 			<h3 style="text-align:center;margin-top: 0;">강의실 예약내역</h3>
 			<table id="reserve-table">
@@ -171,6 +174,7 @@
 					</tr>
 				</thead>
 				<tbody>
+
 			<%
 				sql = "SELECT ReserveRno, Classification, MaxAvailable, StartTime, EndTime, Rdate "
 					+ "FROM RESERVES, TIMELINE, ROOM "

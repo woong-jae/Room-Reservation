@@ -25,7 +25,6 @@
 		stmt.executeUpdate(sql);
 	} catch (SQLException e) {
 		System.out.println("sql error = " + e.getMessage());
-		//**에러처리
 	}
 	
 	//stmt(rs), conn 종료
@@ -34,7 +33,6 @@
 		conn.close();
 	} catch (SQLException e) {
 		e.printStackTrace();
-		//**에러처리
 	}
 	
 	//main.jsp로 이동

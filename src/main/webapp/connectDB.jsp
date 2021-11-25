@@ -1,8 +1,7 @@
+<%@ page language="java" import="java.text.*, java.sql.*" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page language="java" import="java.text.*, java.sql.*" %>
 <%
-//따로 include로 관리해도 될듯
 	String serverIP = "localhost";
 	String strSID = "xe";
 	String portNum = "1521";

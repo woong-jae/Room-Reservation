@@ -26,9 +26,15 @@
 		try {
 			rs = stmt.executeQuery(sql);
 			if (rs.next() == false) {//일치하는 유저가 없다면
-				out.print("ID or password does not match.");
-				//**에러처리
-				response.sendRedirect("main.jsp");
+				out.println("<script>alert('ID 또는 비밀번호가 일치하지 않습니다.');</script>");
+				out.println("<script>location.href='./login.jsp';</script>");
+				try {
+					rs.close();
+					stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				return;
 			}
 		} catch (SQLException e) {
@@ -44,9 +50,15 @@
 		try {
 			rs = stmt.executeQuery(sql);
 			if (rs.next() == false) {//일치하는 매니저가 없다면
-				System.out.println("ID or password does not match.");
-				//**에러처리
-				response.sendRedirect("main.jsp");
+				out.println("<script>alert('ID 또는 비밀번호가 일치하지 않습니다.');</script>");
+				out.println("<script>location.href='./login.jsp';</script>");
+				try {
+					rs.close();
+					stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				return;
 			}
 		} catch (SQLException e) {
@@ -57,15 +69,13 @@
 		session.setAttribute("managerid", id);
 	}
 	
-	//stmt(rs), conn 종료
 	try {
+		rs.close();
 		stmt.close();
 		conn.close();
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-	
-	//main.jsp로 이동
 	response.sendRedirect("main.jsp");
 %>
 

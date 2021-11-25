@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page language="java" import="java.time.*, java.time.format.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,7 +41,7 @@
     	border-top: 1px solid;
 	}
 	#mypage-roomInfo {
-		width: 750px;
+		width: auto;
 		overflow-y: auto;
 	}
 	span {
@@ -58,12 +59,21 @@
 		color: #666;
 		text-align: center;
 	}
+	.no-rating {
+		background: gray;
+		opacity: 0.3;
+	}
+	.no-rating:hover {
+		cursor: auto;
+		background: gray;
+	}
 </style>
 </head>
 <body>
-<script type="text/javascript">
-	function openModal() {
-		var elems = document.getElementsByClassName("modal");
+<script type="text/javascript">	
+	function openModal(className) {
+		var elems = document.getElementsByClassName(className);
+		console.log(className, elems, elems.length);
 		for (var i=0;i<elems.length;i+=1){
 			elems[i].style.display = 'block';
 		}
@@ -76,6 +86,7 @@
 	String UserId = "";
 	String ManagerId = "";
 	String Department = "";
+	String RatingId = "";
 	
 	String RoomNum = "";
 	String RoomClassification = "";
@@ -83,6 +94,17 @@
 	String StartTime = "";
 	String EndTime = "";
 	String Date = "";
+	
+	public void printRatingBtn(javax.servlet.jsp.JspWriter out) throws ServletException {
+		try {
+			if (RatingId == null)
+				out.println("<td><button class='no-rating' onclick=\"openModal('ratingmodal')\">평가하기</button></td>");
+			else 
+				out.println("<td><button class='rating' disabled>평가완료</button></td>");
+		} catch (Exception e){
+			System.err.println("error = " + e.getMessage());
+		}
+	}
 %>
 <%
 	if(session.getAttribute("userid") != null)
@@ -97,13 +119,16 @@
 	}
 %>
 <%
-	String sql = "SELECT Name, StudentId, Department FROM KNU_USER WHERE UserId = '" + UserId + "'";
+	String sql = "SELECT Name, StudentId, Department, RatingId" 
+			+ " FROM (SELECT * FROM KNU_USER LEFT OUTER JOIN RATING ON UserId = RateUid)"
+			+ "	WHERE UserId = '" + UserId + "'";
 	try{
 		rs = stmt.executeQuery(sql);
 		rs.next();
 		Name =  rs.getString(1);
 		StudentId =  rs.getString(2);
 		Department =  rs.getString(3);
+		RatingId = rs.getString(4);
 		rs.close();
 	} catch (SQLException e) {
 		System.err.println("sql error = " + e.getMessage());
@@ -121,10 +146,12 @@
 				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= StudentId %></div>
 				<div><span>아이디 :&nbsp;&nbsp;&nbsp;</span><%= UserId %></div>
 				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Department %></div>
-				<div><button id="pwd-btn" onclick="openModal();">비밀번호 변경</button></div>
+				<div><button id="pwd-btn" onclick="openModal('modal');">비밀번호 변경</button></div>
 				<jsp:include page="./changePwdModal.jsp" />
+				<jsp:include page="./writeRatingModal.jsp" />
 			</div>
 		</div>
+
 		<div id="mypage-roomInfo" class="mypage-contents">
 			<h3 style="text-align:center;margin-top: 0;">강의실 예약내역</h3>
 			<table id="reserve-table">
@@ -134,6 +161,7 @@
 					<col width="200px">
 					<col width="200px">
 					<col width="200px">
+					<col width="120px">
 				</colgroup>
 				<thead>
 					<tr>
@@ -142,9 +170,11 @@
 						<th colspan="1">이용 시작 시간</th>
 						<th colspan="1">이용 종료 시간</th>
 						<th colspan="1">예약 날짜</th>
+						<th colspan="1"></th>
 					</tr>
 				</thead>
 				<tbody>
+
 			<%
 				sql = "SELECT ReserveRno, Classification, MaxAvailable, StartTime, EndTime, Rdate "
 					+ "FROM RESERVES, TIMELINE, ROOM "
@@ -154,16 +184,40 @@
 					rs = stmt.executeQuery(sql);
 					int count = 0;
 					while(rs.next()){
+						String Rdate = "";
 						count += 1;
 						out.println("<tr class='reserve-item'>");
 						out.println("<td>"+rs.getString(1)+"("+rs.getString(2)+")</td>");
 						for(int i=3;i<=6;i++) {
-							out.println("<td>"+rs.getString(i)+"</td>");
+							if(i == 6) {
+								Rdate = rs.getString(i).substring(0, 10);
+								out.println("<td>"+Rdate+"</td>");
+							}
+							else out.println("<td>"+rs.getString(i)+"</td>");
 						}
+
+						// 예약 날짜가 지난 것만 평가할 수 있게 함
+						LocalDateTime now = LocalDateTime.now();
+						String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+						if (Integer.valueOf(date.substring(0, 4)) - Integer.valueOf(Rdate.substring(0, 4)) > 0)
+							printRatingBtn(out);
+						else if (Integer.valueOf(date.substring(0, 4)) - Integer.valueOf(Rdate.substring(0, 4)) == 0)
+							if (Integer.valueOf(date.substring(5, 7)) - Integer.valueOf(Rdate.substring(5, 7)) > 0)
+								printRatingBtn(out);
+							else if (Integer.valueOf(date.substring(5, 7)) - Integer.valueOf(Rdate.substring(5, 7)) == 0)
+								if (Integer.valueOf(date.substring(8, 10)) - Integer.valueOf(Rdate.substring(8, 10)) > 0)
+									printRatingBtn(out);
+								else
+									out.println("<td></td>");
+							else
+								out.println("<td></td>");
+						else
+							out.println("<td></td>");
+						
 						out.println(" </tr>");
 					}
 					if (count ==0) {
-						out.println("<tr><td colspan='5'>");
+						out.println("<tr><td colspan='6'>");
 						out.println("<div style='text-align: center;'>예약 내역이 없습니다.</div>");
 						out.println("</td></tr>");
 					}

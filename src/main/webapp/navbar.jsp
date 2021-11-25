@@ -27,7 +27,15 @@ nav {
 	background: #fafafa;
 }
 #nav-logo {
-	margin-right: 220px
+	margin-right: 220px;
+	margin-left: 80px;
+    font-size: 2em;
+    color: #b41a1f;
+    font-weight: 800;
+    width: auto;
+}
+#nav-logo span {
+	color: black;
 }
 #nav-logo:hover {
 	background: none !important;
@@ -43,14 +51,13 @@ nav {
 </style>
 
 <nav>
-	<a href="./main.jsp" class="nav-item" id="nav-logo">로고</a>
+	<a href="./main.jsp" class="nav-item" id="nav-logo">KNU&nbsp;<span>ROOM</span></a>
 	<div id="nav-wrapper">
 		<a href="./notice.jsp" class="nav-item">공지사항</a>
 		<a href="./report.jsp" class="nav-item">문의사항</a>
 		<a href="./myPage.jsp" class="nav-item">마이페이지</a>
 		<%
 		if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
-			//나중에 user navbar랑 manager navbar 분리해도 괜찮을 듯
 		%>
 		<a href="./login.jsp" class="nav-item" id="nav-login">로그인</a>
 		<%

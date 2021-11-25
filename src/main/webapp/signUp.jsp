@@ -12,6 +12,7 @@
     	.btn{
 	    	background:#b41a1f;
 	    	font-size:1em;
+	    	
 	    	color:white;
 	    	border-radius:5px;
 	    	border:none;

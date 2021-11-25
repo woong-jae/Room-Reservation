@@ -20,7 +20,14 @@
 		}
 		else{
 			response.setHeader("id_check", "false");
-			
+		}
+		
+		//stmt(rs), conn 종료
+		try {
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	} catch (SQLException e) {
 		System.out.println("sql error = " + e.getMessage());

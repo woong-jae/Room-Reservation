@@ -18,7 +18,7 @@
     	
     	.login-area{
     		width:40%;
-    		height:80%;
+    		height:90%;
     		display:flex;
     		justify-content: center;
     		flex-direction: column;
@@ -38,15 +38,8 @@
     		column-gap : 10px;
     		row-gap : 10px;
     		width:80%;
-    		height:80%;
+    		height:30%;
     		margin:auto;
-    	}
-    	
-    	.input-area div{
-    		grid-column: 1/5;
-    		grid-row: 3/4;
-			text-align:center;
-			font-size : 1.2em;
     	}
     	
     	.login_id{
@@ -82,7 +75,40 @@
     	
     	a{
     		text-decoration : none;
-    		font-size : 1.2em;
+    	}
+    	
+    	.toggle-bg{
+    		background:#951418;
+    		width:60px;
+    		height:34px;
+    		border-radius:20px;
+    		display:flex;
+    		cursor:pointer;
+    	}
+    	
+    	.toggle-circle{
+    		background:white;
+    		width:26px;
+    		height:26px;
+    		border-radius:35px;
+    		margin:4px;
+    	}
+    	
+    	.toggle-circle-click{
+    		background:white;
+    		width:26px;
+    		height:26px;
+    		border-radius:35px;
+    		margin:4px;
+    		margin-left:30px;
+    	}
+    	
+    	.toggle-bg input{
+    		display:none
+    	}
+    	
+    	.signup-link{
+    		text-align:center;
     	}
     </style>
 </head>
@@ -96,21 +122,40 @@
 <%@ include file="./navbar.jsp" %>
 	<div class="login-outer-area">
 		<div class="login-area">
-			<h1 class="title">Login</h1>
+			<h1 class="title" id="title">Login</h1>
 			<form class="input-area" name="login" method="post" action="./loginDB.jsp">
 				<input class="login_id" name="id" placeholder="아이디" required>
 			    <input class="login_pw" name="pw"  placeholder="비밀번호" type="password" required>
 			    <input class="submit_btn" type="submit" value="로그인">
-				<div>
-					<input id="user" type="radio" name="login_type" value="user" required checked>
-					<label for="user">유저</label>
-			        <input id="manager" type="radio" name="login_type" value="manager" required>
-			        <label for="manager">매니저</label>
-				</div>
+			    <div class="toggle-bg" id="toggle" onclick="changeLoginMode()">
+				    <div class="toggle-circle" id="toggle_circle">
+				    <input id="user" type="radio" name="login_type" value="user" required checked>
+					<input id="manager" type="radio" name="login_type" value="manager" required>
+				    </div>
+			    </div>
 		    </form>
-		    <a style="margin:0 auto;" href="./signUp.jsp">회원가입</a>
+		    <p class="signup-link">계정이 없으신가요? <a style="margin:0 auto;" href="./signUp.jsp">회원가입</a></p>
 		</div>
 	</div>
 <%@ include file="./footer.jsp" %>
+<script>
+	function changeLoginMode(){
+		const toggle = document.getElementById("toggle_circle");
+		const title = document.getElementById("title");
+		const userRadio = document.getElementById("user");
+		const managerRadio = document.getElementById("manager");
+		if(toggle.classList.value === "toggle-circle"){
+			title.innerText = "Manager";
+			userRadio.checked = false;
+			managerRadio.checked = true;
+		}else{
+			title.innerText = "Login";
+			userRadio.checked = true;
+			managerRadio.checked = false;
+		}
+		toggle.classList.toggle('toggle-circle');
+		toggle.classList.toggle('toggle-circle-click');
+	}
+</script>
 </body>
 </html>

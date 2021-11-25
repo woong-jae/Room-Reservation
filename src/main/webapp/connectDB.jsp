@@ -2,7 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
-//따로 include로 관리해도 될듯
 	String serverIP = "localhost";
 	String strSID = "orcl";
 	String portNum = "1521";

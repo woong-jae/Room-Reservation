@@ -87,17 +87,29 @@ button.panel-item:hover {
   border: 1px solid #888;
   width: 700px; /* Could be more or less, depending on screen size */
 }
-
+.modal-qst {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.modal-qst p {
+	margin-right: 10px;
+}
+.modal-btn {
+	margin-left: 8px;
+    width: 50px;
+    font-size: 1.1em;
+}
 /* The Close Button */
-.close {
+span.close {
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
+span.close:hover,
+span.close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -199,7 +211,7 @@ button.panel-item:hover {
 		
 		// Display
 		for (int i = 0; i < rooms.size(); i++) {
-			out.println("<button class=\"accordion\">");
+			out.println("<button class=\"accordion\" id='" + rooms.get(i).roomNo + "'>");
 			out.println("<div class=\"button-label\">" + rooms.get(i).roomNo + "호</div>");
 			out.println("<div class=\"button-label\">");
 			switch (rooms.get(i).classification) {
@@ -220,7 +232,7 @@ button.panel-item:hover {
 			}
 			else {
 				for (int j = 0; j < rooms.get(i).timelines.size(); j++) {
-					out.println("<button class=\"panel-item\" value='" + rooms.get(i).timelines.get(j).timelineId + "'><p>" + rooms.get(i).timelines.get(j).start + " ~ " + rooms.get(i).timelines.get(j).end + "</p><p>예약 현황: " + rooms.get(i).timelines.get(j).currentReserved + "/" + rooms.get(i).maxAvail + "</p></button>");
+					out.println("<button class=\"panel-item\" value='" + rooms.get(i).roomNo + " " + rooms.get(i).timelines.get(j).timelineId + "'><p>" + rooms.get(i).timelines.get(j).start + " ~ " + rooms.get(i).timelines.get(j).end + "</p><p>예약 현황: " + rooms.get(i).timelines.get(j).currentReserved + "/" + rooms.get(i).maxAvail + "</p></button>");
 				}	
 			}
 			out.println("</div>");	
@@ -230,16 +242,20 @@ button.panel-item:hover {
 
 <!-- Modal -->
 <div id="myModal" class="modal">
-
   <div class="modal-content">
     <span class="close">&times;</span>
-    <p>Some text in the Modal..</p>
+    <div class="modal-qst">
+    	<p>이 시간대에 예약하시겠습니까?</p>
+    	<button class="modal-btn" onClick="reserve()">예약</button>
+		<button class="modal-btn close">취소</button>
+    </div>
   </div>
 
 </div>
 
 <%@ include file="./footer.jsp" %>
 <script type="text/javascript">
+	var input;
 	/* 아코디언 */
 	var acc = document.getElementsByClassName("accordion");
 	var i;
@@ -258,7 +274,7 @@ button.panel-item:hover {
 	
 	/* 모달 */
 	var modal = document.getElementById("myModal");
-	var span = document.getElementsByClassName("close")[0];
+	var span = document.getElementsByClassName("close");
 	var btn = document.getElementsByClassName("panel-item");
 	
 	for (i = 0; i < btn.length; i++) {
@@ -266,10 +282,11 @@ button.panel-item:hover {
 			if (<%= uid != null ? "'" + uid + "'" : null %>) {
 				modal.style.display = "block";
 				var content = document.getElementsByClassName("modal-content");
+				/* content[0].getElementsByTagName("p")[0].innerText = "이 시간대에 예약하시겠습니까?"; */
 				if (elem.target.className) {
-					content[0].getElementsByTagName("p")[0].innerText = "timelineRno =" + elem.target.value;	
+					input = elem.target.value;
 				} else {
-					content[0].getElementsByTagName("p")[0].innerText = "timelineRno =" + elem.target.parentNode.value;
+					input = elem.target.parentNode.value;
 				}
 			} else {
 				window.alert("로그인을 하십시오.");
@@ -278,8 +295,10 @@ button.panel-item:hover {
 		})
 	}
 	
-	span.onclick = function() {
-		modal.style.display = "none";	
+	for (i = 0; i < span.length; i++) {
+		span[i].onclick = function() {
+			modal.style.display = "none";
+		}	
 	}
 
 	window.onclick = function(event) {
@@ -288,6 +307,20 @@ button.panel-item:hover {
 		}
 	}
 	
+	function reserve() {
+		var form = document.createElement('form');
+		var inputs;
+		inputs = document.createElement('input');
+		inputs.setAttribute('type', 'text');
+		inputs.setAttribute('name', 'input');
+		inputs.setAttribute('value', input);
+		form.appendChild(inputs);
+		
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', "./reservation.jsp");
+		document.body.appendChild(form);
+		form.submit();
+	}
 </script>
 </body>
 </html>

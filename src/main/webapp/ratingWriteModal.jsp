@@ -25,9 +25,13 @@ function rateCheck(){
 			return false;
 		};
 		
+		if(!confirm("평가는 수정, 삭제 할 수 없습니다. 등록하시겠습니까?")){
+			return false;
+		}
+		
 		Rcomment.value = Rcomment.value.replace(/'/g,"''");
 		
-		return true;	
+		return true;
 	}catch(error){
 		console.log(error);
 		return false;
@@ -91,35 +95,61 @@ function rateCheck(){
 		<div>
 			<b>이용시간</b> : <input id="startTime" class="readonly-input" type="text" name="startTime" readonly>~  <input id="endTime" class="readonly-input" type="text" name="endTime" readonly>
 		</div>
-		<div>
-			<b>평점 </b> :
-			<input id="star1" type="radio" name="starRate" value="1">
-			<label id="star1Label" for="star1">1</label>
-			<input id="star2" type="radio" name="starRate" value="2">
-			<label id="star2Label" for="star2">2</label>
-			<input id="star3" type="radio" name="starRate" value="3">
-			<label id="star3Label" for="star3">3</label>
-			<input id="star4" type="radio" name="starRate" value="4">
-			<label id="star4Label" for="star4">4</label>
-			<input id="star5" type="radio" name="starRate" value="5">
-			<label id="star5Label" for="star5">5</label>
+		<div style="display:grid; grid-template-columns: 1fr 1fr;">
+			<div>
+				<b>평점 </b> :
+				<input id="star1" type="radio" name="starRate" value="1">
+				<label id="star1Label" for="star1">1</label>
+				<input id="star2" type="radio" name="starRate" value="2">
+				<label id="star2Label" for="star2">2</label>
+				<input id="star3" type="radio" name="starRate" value="3">
+				<label id="star3Label" for="star3">3</label>
+				<input id="star4" type="radio" name="starRate" value="4">
+				<label id="star4Label" for="star4">4</label>
+				<input id="star5" type="radio" name="starRate" value="5">
+				<label id="star5Label" for="star5">5</label>
+			</div>
+			<div style="text-align:right">
+				<span id="byte-count">0</span><span> Bytes</span>
+			</div>
 		</div>
-		<textarea name="comment" cols="50" rows="5" onchage="lengthCheck()")></textarea>
+		<textarea spellcheck="false" name="comment" cols="50" rows="5")></textarea>
 		<button class="submit-btn" type="submit">작성</button>
 	</form>
 </div>
 
 <script>
-function closeRate(className){
-	closeModal(className);
-	const textArea = document.querySelector('textarea');
-	textArea.value = "";
-	const score = document.querySelectorAll('input[type=radio]');
-	for(i=0; i<score.length; i++){
-		score[i].checked = false;
+	function closeRate(className){
+		closeModal(className);
+		const RComment = document.querySelector('textarea');
+		RComment.value = "";
+		const score = document.querySelectorAll('input[type=radio]');
+		for(i=0; i<score.length; i++){
+			score[i].checked = false;
+		}
 	}
-}
-
-function lengthCheck(){
-}
+	
+	const RComment = document.querySelector('textarea');
+	RComment.addEventListener('keyup', checkByte);
+	const byteCount = document.getElementById('byte-count');
+	
+	let message = "";
+	const MAX_LIMIT = 300;
+	
+	function checkByte(event){
+		let count = 0;
+		
+		for(index = 0; index < event.target.value.length; index++){
+			if(event.target.value.charCodeAt(index) <= 128) count++;
+			else count += 2;
+		}
+		
+		if(count <= MAX_LIMIT){
+			message = event.target.value;
+			byteCount.innerText = count;
+		}else{
+			alert("평가는 " + str + " Bytes만큼만 입력할 수 있습니다.");
+			event.target.value = message;
+		}
+	}
 </script>

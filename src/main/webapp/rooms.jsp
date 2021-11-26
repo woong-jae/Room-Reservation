@@ -80,6 +80,7 @@ button.panel-item:hover {
 .review p {
 	margin: 0;
 	padding: 10px;
+	white-space: pre-line;
 }
 .review-label {
 	width: 97%;

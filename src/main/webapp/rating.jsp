@@ -31,16 +31,13 @@
 
 	sql = "INSERT INTO RATING VALUES (" + rateid + ", '" + user_id + "', " + RoomNumber + ", " + rate + ", '" + comment + "')";
 	
-	System.out.println(sql);
-	
 	try {
 		int res = stmt.executeUpdate(sql);
 	} catch (SQLException e) {
 		System.out.println("sql error = " + e.getMessage());
 	}
 
-	System.out.println(sql);
-	response.sendRedirect("main.jsp");
+	response.sendRedirect("./myPage.jsp");
 %>
 
 </body>

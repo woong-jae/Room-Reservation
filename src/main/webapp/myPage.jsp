@@ -59,12 +59,21 @@
 		color: #666;
 		text-align: center;
 	}
-	.no-rating {
-		background: gray;
-		opacity: 0.3;
+	
+	#reserve-table th button {
+		padding: 10px;
+		border-bottom: 1px solid lightgray;
+		color: #666;
+		text-align: center;
 	}
-	.no-rating:hover {
-		cursor: auto;
+	
+	.rating {
+		background: gray;
+		opacity: 0.5;
+		color:white;
+		cursor:auto;
+	}
+	.rating:hover {
 		background: gray;
 	}
 </style>
@@ -102,7 +111,7 @@
 			if (RatingId == null)
 				out.println("<td><button class='no-rating'>평가하기</button></td>");
 			else 
-				out.println("<td><button class='rating' disabled>평가완료</button></td>");
+				out.println("<td><button class='rating' disabled>평가완료</td>");
 		} catch (Exception e){
 			System.err.println("error = " + e.getMessage());
 		}
@@ -130,7 +139,6 @@
 		Name =  rs.getString(1);
 		StudentId =  rs.getString(2);
 		Department =  rs.getString(3);
-		RatingId = rs.getString(4);
 		rs.close();
 	} catch (SQLException e) {
 		System.err.println("sql error = " + e.getMessage());
@@ -178,10 +186,12 @@
 				<tbody>
 
 			<%
-				sql = "SELECT ReserveRno, Classification, MaxAvailable, StartTime, EndTime, Rdate "
-					+ "FROM RESERVES, TIMELINE, ROOM "
-					+ "WHERE ReserveUid = '" + UserId + "' AND ReserveTid = TimeLineId AND ReserveRno = RoomNumber "
-					+ "ORDER BY Rdate";
+				sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid "
+						+ "from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room "
+						+ "where timelineid = reservetid and timelinerno = reserverno "
+						+ "and reserverno = roomnumber "
+						+ "and reserveuid = '" + UserId + "' " 
+						+ "order by reserverno";
 				try{
 					rs = stmt.executeQuery(sql);
 					int count = 0;
@@ -197,7 +207,7 @@
 							}
 							else out.println("<td>"+rs.getString(i)+"</td>");
 						}
-
+						RatingId = rs.getString(7);
 						// 예약 날짜가 지난 것만 평가할 수 있게 함
 						LocalDateTime now = LocalDateTime.now();
 						String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));

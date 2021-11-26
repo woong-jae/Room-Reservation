@@ -185,15 +185,17 @@
 				<tbody>
 
 			<%
-				sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid "
-						+ "from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room "
-						+ "where timelineid = reservetid and timelinerno = reserverno "
-						+ "and reserverno = roomnumber "
-						+ "and reserveuid = '" + UserId + "' " 
-						+ "order by rdate desc";
+				sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid, ROW_NUMBER() over(order by rdate desc) num from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room where timelineid = reservetid and timelinerno = reserverno and reserverno = roomnumber and reserveuid = 'bh2980' order by rdate desc, timeline.starttime desc";
+				//sql = "select * from (select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid, ROW_NUMBER() over(order by rdate desc) num from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room where timelineid = reservetid and timelinerno = reserverno and reserverno = roomnumber and reserveuid = 'bh2980' order by rdate desc, timeline.starttime desc) where num between 1 and 4";
 				try{
 					rs = stmt.executeQuery(sql);
+					//rs.last();
+					//int rowCount = rs.getRow()-1;
+					//rs.beforeFirst();
+					//int Maxpage = (int)(Math.ceil((float)rowCount/4));
+					//System.out.println(Maxpage);
 					int count = 0;
+					
 					while(rs.next()){
 						String Rdate = "";
 						count += 1;
@@ -232,6 +234,11 @@
 						out.println("<div style='text-align: center;'>예약 내역이 없습니다.</div>");
 						out.println("</td></tr>");
 					}
+					//out.println("<tr><td colspan='6'>");
+					//for(int i=1; i<=Maxpage; i++){
+					//	out.println(i);
+					//}
+					out.println("</td></tr>");
 					rs.close();
 				} catch (SQLException e) {
 					System.err.println("sql error = " + e.getMessage());

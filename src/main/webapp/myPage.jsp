@@ -84,7 +84,6 @@
 
 	function openModal(className) {
 		var elems = document.getElementsByClassName(className);
-		console.log(className, elems, elems.length);
 		for (var i=0;i<elems.length;i+=1){
 			elems[i].style.display = 'block';
 		}
@@ -158,7 +157,7 @@
 				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Department %></div>
 				<div><button id="pwd-btn" onclick="openModal('modal');">비밀번호 변경</button></div>
 				<jsp:include page="./changePwdModal.jsp" />
-				<jsp:include page="./writeRatingModal.jsp" />
+				<jsp:include page="./ratingWriteModal.jsp" />
 			</div>
 		</div>
 
@@ -246,7 +245,6 @@
 <%@ include file="./footer.jsp" %>
 <script>
 	var cols = document.querySelectorAll(".no-rating");
-	console.log(cols);
 	[].forEach.call(cols, function(col){
 	  col.addEventListener("click" , doRating , false );
 	});

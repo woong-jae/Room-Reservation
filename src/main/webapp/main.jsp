@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<title>Insert title here</title>
+<title>KNU ROOM</title>
 <link rel="icon" href="./image/favicon.png">
 <link rel="stylesheet" href="./style/globalStyle.css">
 <style type="text/css">

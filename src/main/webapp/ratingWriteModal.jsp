@@ -19,11 +19,13 @@ function rateCheck(){
 			return false;
 		}
 		
-		const textArea = document.querySelector('textarea');
-		if(textArea.value.length == 0){
+		const Rcomment = document.querySelector('textarea');
+		if(Rcomment.value.length == 0){
 			alert("내용을 적어주세요.");
 			return false;
 		};
+		
+		Rcomment.value = Rcomment.value.replace(/'/g,"''");
 		
 		return true;	
 	}catch(error){
@@ -102,7 +104,7 @@ function rateCheck(){
 			<input id="star5" type="radio" name="starRate" value="5">
 			<label id="star5Label" for="star5">5</label>
 		</div>
-		<textarea name="comment" cols="50" rows="5"></textarea>
+		<textarea name="comment" cols="50" rows="5" onchage="lengthCheck()")></textarea>
 		<button class="submit-btn" type="submit">작성</button>
 	</form>
 </div>
@@ -116,5 +118,8 @@ function closeRate(className){
 	for(i=0; i<score.length; i++){
 		score[i].checked = false;
 	}
+}
+
+function lengthCheck(){
 }
 </script>

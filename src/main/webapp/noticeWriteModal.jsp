@@ -21,6 +21,9 @@
 	    	window.alert('내용을 입력하세요.');
 	        return false;
 	    }
+	    
+	    RTitle.value = RTitle.value.replace(/'/g,"''");
+	    RContent.value = RContent.value.replace(/'/g,"''");
 	}
 </script>
 

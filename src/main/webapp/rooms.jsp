@@ -36,6 +36,9 @@
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.2s ease-out;
+	display: flex;
+	justify-content: space-evenly;
+	width: 100%;
 }
 
 .panel-item {
@@ -47,18 +50,45 @@
 	outline: none;
 	cursor: pointer;
 	background-color: #fff;
+	border-bottom: solid 1px;
 }
 button.panel-item:hover {
 	background-color: bisque;
 }
-
-.panel-item:not(:last-child) {
-	border-bottom: solid 1px;
-}
-
 .panel-item-navail {
 	font-size: 1.2rem;
 	text-align: center;
+}
+
+.review-container {
+	width: 35%;
+	height: 350px;
+	overflow: auto;
+}
+
+.review {
+	background-color: ghostwhite;
+    margin-bottom: 10px;
+    border-radius: 15px;
+}
+.review span {
+	width: 40%;
+    margin: 0;
+    display: inline-block;
+    padding: 8px;
+}
+.review p {
+	margin: 0;
+	padding: 10px;
+}
+.review-label {
+	width: 97%;
+	padding: 2px;
+	border-bottom: solid 1px;
+}
+
+.timeline-container {
+	width: 60%;
 }
 
 .button-label {
@@ -133,6 +163,18 @@ span.close:focus {
 	<% 
 		if(session.getAttribute("userid") != null)
 			uid = session.getAttribute("userid").toString();
+	
+		class Review {
+			public String uid;
+			public int rate;
+			public String comment;
+			
+			public Review(String uid, int rate, String comment) {
+				this.uid = uid;
+				this.rate = rate;
+				this.comment = comment;
+			}
+		}
 
 		class Timeline {
 			public int timelineId;
@@ -153,12 +195,15 @@ span.close:focus {
         	public String classification;
         	public int maxAvail;
         	public ArrayList<Timeline> timelines;
+        	public ArrayList<Review> reviews;
+        	public float rate;
         	
         	public Room(int roomNo, String classification, int maxAvail) {
         		this.roomNo = roomNo;
         		this.classification = classification;
         		this.maxAvail = maxAvail;
         		this.timelines = new ArrayList<Timeline>();
+        		this.reviews = new ArrayList<Review>();
         	}
 		}
 		
@@ -175,18 +220,29 @@ span.close:focus {
 			System.err.println("sql error = " + e.getMessage());
 		}
 		
-		// Room마다 타임라인 정보 들고오기
+		// Room마다 타임라인 정보, rating, 평균 rate 들고오기
 		for (int i = 0; i < rooms.size(); i++) {
-			query = "SELECT * FROM TIMELINE WHERE TimelineRno=" + rooms.get(i).roomNo + "ORDER BY StartTime";
 			try {
+				query = "SELECT * FROM TIMELINE WHERE TimelineRno=" + rooms.get(i).roomNo + "ORDER BY StartTime";
 				rs = stmt.executeQuery(query);
 				while(rs.next()){
 					rooms.get(i).timelines.add(new Timeline(rs.getInt(2), rs.getInt(3), rs.getInt(4)));
 				}
+				query = "SELECT AVG(Rate) FROM RATING WHERE RateRno = " + rooms.get(i).roomNo;
+				
+				rs = stmt.executeQuery(query);
+				if(rs.next()) {
+					rooms.get(i).rate = rs.getFloat(1);
+				}
+				
+				query = "SELECT RateUid, Rate, RComment FROM RATING WHERE RateRno = " + rooms.get(i).roomNo;
+				rs = stmt.executeQuery(query);
+				while(rs.next()){
+					rooms.get(i).reviews.add(new Review(rs.getString(1), rs.getInt(2), rs.getString(3)));
+				}
 			} catch (SQLException e) {
 				System.err.println("sql error = " + e.getMessage());
 			}
-			
 		}
 		
 		// Timeline마다 몇 명이 예약했는지 들고오기 
@@ -206,9 +262,6 @@ span.close:focus {
 			}
 		}
 		
-		stmt.close();
-		rs.close();
-		
 		// Display
 		for (int i = 0; i < rooms.size(); i++) {
 			out.println("<button class=\"accordion\" id='" + rooms.get(i).roomNo + "'>");
@@ -227,6 +280,14 @@ span.close:focus {
 			out.println("</button>");
 			
 			out.println("<div class=\"panel\">");
+			out.println("<div class='review-container'>");
+			out.println("<p>평점(5점): " + String.format("%.1f", rooms.get(i).rate) + "</p>");
+			for (int j = 0; j < rooms.get(i).reviews.size(); j++) {
+				out.println("<div class=\"review\"><div class='review-label'><span>ID: " + rooms.get(i).reviews.get(j).uid + "</span><span>평점: " + rooms.get(i).reviews.get(j).rate + "</span></div><p>" + rooms.get(i).reviews.get(j).comment + "</p></div>");
+			}	
+			out.println("</div>");
+			
+			out.println("<div class='timeline-container'>");
 			if (rooms.get(i).timelines.size() == 0) {
 				out.println("<p class='panel-item-navail'>예약 가능한 시간대가 없습니다.</p>");
 			}
@@ -235,6 +296,7 @@ span.close:focus {
 					out.println("<button class=\"panel-item\" value='" + rooms.get(i).roomNo + " " + rooms.get(i).timelines.get(j).timelineId + "'><p>" + rooms.get(i).timelines.get(j).start + " ~ " + rooms.get(i).timelines.get(j).end + "</p><p>예약 현황: " + rooms.get(i).timelines.get(j).currentReserved + "/" + rooms.get(i).maxAvail + "</p></button>");
 				}	
 			}
+			out.println("</div>");
 			out.println("</div>");	
 		}
 	%>

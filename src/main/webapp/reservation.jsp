@@ -55,7 +55,11 @@
 								+ rq[0] + ", " 
 								+ rq[1] + ", TO_DATE('" + toDate.format(today) + "', 'yyyy-mm-dd'))";
 						stmt.executeUpdate(sql);
-						conn.commit();						
+						conn.commit();
+						
+						conn.close();
+						stmt.close();
+						rs.close();
 					} else {
 						conn.rollback();
 						out.println("<script>alert('해당 시간대에 예약이 가득찼습니다!');</script>");

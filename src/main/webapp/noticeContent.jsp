@@ -41,6 +41,7 @@
 	#notice-content {
 		padding: 20px;
 		height: 250px;
+		white-space: pre-line;
 		word-break: break-all;
 	}
 	#delete-notice, #update-notice {
@@ -158,15 +159,15 @@
 %>
 <!-- delete modal -->
 <div id="modal-delete" class="modal">
-  <form id="modal-content" method="post" action="./noticeContent.jsp?NoticeId=<%= NoticeId %>&Delete=yes">
+  <form class="modal-content" method="post" action="./noticeContent.jsp?NoticeId=<%= NoticeId %>&Delete=yes">
         <p style="display: flex;justify-content: center;align-items: flex-end;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">해당 공지를 정말로 삭제하시겠습니까?</span></b></span>
-        	<button type="button" id="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="text-align: center;margin-bottom: 20px;">
          	삭제한 데이터는 복구할 수 없습니다.
         </div>
-        <button id="submit-btn" type="submit">
+        <button class="submit-btn" type="submit">
             <span class="pop_bt" style="font-size: 13pt;" >
                  삭제
             </span>
@@ -176,10 +177,10 @@
 
 <!-- update modal -->
 <div id="modal-update" class="modal">
-  <form id="modal-content" method="post" action="./noticeContent.jsp?NoticeId=<%= NoticeId %>&Update=yes" onsubmit="return checkForm();">
+  <form class="modal-content" method="post" action="./noticeContent.jsp?NoticeId=<%= NoticeId %>&Update=yes" onsubmit="return checkForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;margin-left: 50px;">공지 수정하기</span></b></span>
-        	<button type="button" id="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
          	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
@@ -190,7 +191,7 @@
          		<textarea style="width: 100%;height: 150px;resize: none;" name="NContent" id="NContent"><%= NContent %></textarea>
          	</div>
         </div>
-        <button id="submit-btn" type="submit">
+        <button class="submit-btn" type="submit">
             <span class="pop_bt" style="font-size: 13pt;" >
                  수정
             </span>

@@ -47,7 +47,6 @@
 		</thead>
 		<tbody>
 		<%
-			request.setCharacterEncoding("UTF-8");
 			String sql = "";
 			String keyword = request.getParameter("keyword");
 			if (keyword == null || keyword == "")

@@ -9,8 +9,6 @@
 <body>
 <%@ include file="./connectDB.jsp" %>
 <%
-	request.setCharacterEncoding("utf-8");//한글 깨짐 방지
-
 	String name = request.getParameter("name");
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");

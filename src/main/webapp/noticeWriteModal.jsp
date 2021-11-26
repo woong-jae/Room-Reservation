@@ -61,10 +61,10 @@
 %>
 
 <div class="modal">
-  <form id="modal-content" method="post" action="./notice.jsp" onsubmit="return checkForm();">
+  <form class="modal-content" method="post" action="./notice.jsp" onsubmit="return checkForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;margin-left: 50px;">공지하기</span></b></span>
-        	<button type="button" id="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
         </p>
         <div style="display:flex;flex-direction:column;align-items: baseline;">
          	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
@@ -75,7 +75,7 @@
          		<textarea style="width: 100%;height: 150px;resize: none;" name="NContent" id="NContent"></textarea>
          	</div>
         </div>
-        <button id="submit-btn" type="submit">
+        <button class="submit-btn" type="submit">
             <span class="pop_bt" style="font-size: 13pt;" >
                  제출
             </span>

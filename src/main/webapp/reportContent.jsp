@@ -42,6 +42,7 @@
 .report-content {
 	padding: 20px;
 	height: 125px;
+	white-space: pre-line;
 	word-break: break-all;
 }
 #no-answer {

@@ -71,6 +71,8 @@
 </head>
 <body>
 <script type="text/javascript">	
+	let roomNumber = null;
+
 	function openModal(className) {
 		var elems = document.getElementsByClassName(className);
 		console.log(className, elems, elems.length);
@@ -98,7 +100,7 @@
 	public void printRatingBtn(javax.servlet.jsp.JspWriter out) throws ServletException {
 		try {
 			if (RatingId == null)
-				out.println("<td><button class='no-rating' onclick=\"openModal('ratingmodal')\">평가하기</button></td>");
+				out.println("<td><button class='no-rating'>평가하기</button></td>");
 			else 
 				out.println("<td><button class='rating' disabled>평가완료</button></td>");
 		} catch (Exception e){
@@ -232,5 +234,25 @@
 	</div>
 </div>
 <%@ include file="./footer.jsp" %>
+<script>
+	var cols = document.querySelectorAll(".no-rating");
+	console.log(cols);
+	[].forEach.call(cols, function(col){
+	  col.addEventListener("click" , doRating , false );
+	});
+	  
+	function doRating(e){
+		informantion = e.target.parentNode.parentNode;
+		
+		const roomNo = document.getElementById("roomNo");
+		const startTime = document.getElementById("startTime");
+		const endTime = document.getElementById("endTime");
+		
+		roomNo.value = informantion.cells[0].childNodes[0].nodeValue.split('(')[0];
+		startTime.value = informantion.cells[2].childNodes[0].nodeValue;
+		endTime.value = informantion.cells[3].childNodes[0].nodeValue;
+		openModal('ratingmodal');
+	}
+</script>
 </body>
 </html>

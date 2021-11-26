@@ -100,7 +100,22 @@
     		height:26px;
     		border-radius:35px;
     		margin:4px;
-    		margin-left:30px;
+    	}
+    	
+    	.toggle-forwrad{
+    		animation-name: toggle-forwrad;
+		    animation-duration:0.5s;
+		    animation-duration: leaner;
+		    animation-direction : alternate;
+		    animation-fill-mode : forwards;
+    	}
+    	
+    	.toggle-backward{
+    		animation-name: toggle-backward;
+		    animation-duration:0.5s;
+		    animation-duration: leaner;
+		    animation-direction : alternate;
+		    animation-fill-mode : forwards;
     	}
     	
     	.toggle-bg input{
@@ -110,6 +125,24 @@
     	.signup-link{
     		text-align:center;
     	}
+    	
+    	@-webkit-keyframes toggle-forwrad {
+		  0% {
+		    margin-left:4px;
+		  }
+		  100% {
+		    margin-left:30px;
+		  }
+		}
+		
+		@-webkit-keyframes toggle-backward {
+		  0% {
+		    margin-left:30px;
+		  }
+		  100% {
+		    margin-left:4px;
+		  }
+		}
     </style>
 </head>
 <%
@@ -148,10 +181,20 @@
 			title.innerText = "Manager";
 			userRadio.checked = false;
 			managerRadio.checked = true;
+			toggle.classList.toggle('toggle-forwrad')
+		}
+		else if(toggle.classList.value === "toggle-backward toggle-circle"){
+			title.innerText = "Manager";
+			userRadio.checked = false;
+			managerRadio.checked = true;
+			toggle.classList.toggle('toggle-forwrad');
+			toggle.classList.toggle('toggle-backward');
 		}else{
 			title.innerText = "Login";
 			userRadio.checked = true;
 			managerRadio.checked = false;
+			toggle.classList.toggle('toggle-forwrad');
+			toggle.classList.toggle('toggle-backward');
 		}
 		toggle.classList.toggle('toggle-circle');
 		toggle.classList.toggle('toggle-circle-click');

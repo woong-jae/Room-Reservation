@@ -190,7 +190,7 @@
 						+ "where timelineid = reservetid and timelinerno = reserverno "
 						+ "and reserverno = roomnumber "
 						+ "and reserveuid = '" + UserId + "' " 
-						+ "order by reserverno";
+						+ "order by rdate desc";
 				try{
 					rs = stmt.executeQuery(sql);
 					int count = 0;

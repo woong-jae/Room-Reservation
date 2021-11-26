@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 <%
 	String serverIP = "localhost";
-	String strSID = "xe";
+	String strSID = "orcl";
 	String portNum = "1521";
 	String user = "knuroom";
 	String pass = "comp322";

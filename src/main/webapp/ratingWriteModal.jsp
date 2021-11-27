@@ -129,9 +129,8 @@ function rateCheck(){
 		}
 	}
 	
-	const RComment = document.querySelector('textarea');
-	RComment.addEventListener('keyup', checkByte);
-	const byteCount = document.getElementById('byte-count');
+	document.querySelector('textarea').addEventListener('keyup', checkByte);
+	var byteCount = document.getElementById('byte-count');
 	
 	let message = "";
 	const MAX_LIMIT = 300;

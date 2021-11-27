@@ -40,6 +40,15 @@
     	height: 90%;
     	border-top: 1px solid;
 	}
+	
+	.hidden-input{
+		display:none;
+	}
+	
+	.shown-input{
+		font-weight: normal;
+	}
+	
 	#mypage-roomInfo {
 		width: auto;
 		overflow-y: auto;
@@ -79,8 +88,8 @@
 	}
 	
 	.page-index{
-		margin-top:15px;
-		padding:10px 20px;
+		margin-top:20px;
+		padding:5px 15px;
 		width:fit-content;
 		height:fit-content;
 		border : 1px solid darkgray;
@@ -101,6 +110,35 @@
 		for (var i=0;i<elems.length;i+=1){
 			elems[i].style.display = 'block';
 		}
+	}
+	
+	function editInfo(){
+		const shownInputs = document.querySelectorAll(".shown-input");
+		const hiddenInputs = document.querySelectorAll(".hidden-input");
+		
+		shownInputs.forEach(function(shownInput){
+			shownInput.classList.toggle('shown-input');
+			shownInput.classList.toggle('hidden-input');
+		})
+		
+		hiddenInputs.forEach(function(hiddenInput){
+			hiddenInput.classList.toggle('shown-input');
+			hiddenInput.classList.toggle('hidden-input');
+		})
+	}
+	
+	function OKButton(){
+		const shownInputs = document.querySelectorAll(".shown-input");
+		const hiddenInputs = document.querySelectorAll(".hidden-input");
+		
+		shownInputs.forEach(function(shownInput){
+			shownInput.classList.toggle('shown-input');
+			shownInput.classList.toggle('hidden-input');
+		})
+		hiddenInputs.forEach(function(hiddenInput){
+			hiddenInput.classList.toggle('shown-input');
+			hiddenInput.classList.toggle('hidden-input');
+		})
 	}
 </script>
 <%@ include file="./connectDB.jsp" %>
@@ -198,15 +236,27 @@
 	<div id="mypage-wrapper">
 		<div class="mypage-contents">
 			<h3 style="text-align:center;margin-top: 0;">내 정보</h3>
-			<div id="mypage-userInfo">
-				<div><span>이름&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Name %></div>
-				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= StudentId %></div>
+			<form id="mypage-userInfo" action="./editInfo.jsp">
+				<div><span>이름&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= Name %></span><input class="hidden-input" id="name" name="name" value=<%= Name %> /></div>
+				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= StudentId %></span><input class="hidden-input" id="sid" name="sid" value=<%= StudentId %> /></div>
 				<div><span>아이디 :&nbsp;&nbsp;&nbsp;</span><%= UserId %></div>
-				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><%= Department %></div>
-				<div><button id="pwd-btn" onclick="openModal('modal');">비밀번호 변경</button></div>
+				<div><span>비밀번호 :&nbsp;&nbsp;&nbsp;</span><button id="pwd-btn" type="button" onclick="openModal('modal');">비밀번호 변경</button></div>
+				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= Department %></span>
+					<select class="hidden-input" id="major" name="major">
+			            <option value="컴퓨터공학부">컴퓨터공학부</option>
+			            <option value="전기공학과">전기공학과</option>
+			            <option value="전자공학부">전자공학부</option>
+			        </select>
+		        </div>
+				<div>
+					<span class="shown-input"><button id=edit-btn" type="button" onclick="editInfo();">정보 수정(구현중)</button></span>
+					<button class="hidden-input" onclick="OKButton();">확인</button>
+					<button id="delete-btn" type="button" onclick="openModal('deletemodal');">탈퇴하기</button>
+				</div>
 				<jsp:include page="./changePwdModal.jsp" />
 				<jsp:include page="./ratingWriteModal.jsp" />
-			</div>
+				<jsp:include page="./deleteAccountModal.jsp" />
+			</form>
 		</div>
 
 		<div id="mypage-roomInfo" class="mypage-contents">
@@ -314,6 +364,7 @@
 </div>
 <%@ include file="./footer.jsp" %>
 <script>
+	//평가하기/평가완료 그리는 코드
 	var cols = document.querySelectorAll(".no-rating");
 	[].forEach.call(cols, function(col){
 	  col.addEventListener("click" , doRating , false );
@@ -332,6 +383,7 @@
 		openModal('ratingmodal');
 	}
 	
+	//paging 코드
 	var cols = document.querySelectorAll(".page-index");
 	[].forEach.call(cols, function(col){
 	  col.addEventListener("click" , paging , false );
@@ -340,18 +392,24 @@
 	const currentPage = <%= pageParameter %>
 	const maxPage = <%= maxPage %>
 	
-	if(currentPage%4 > 0){
-		cols[currentPage%4].style.background="darkgray";
-	}else{
-		cols[currentPage%4+4].style.background="darkgray";
+	if(maxPage === 0){
+		cols[0].removeEventListener("click" , paging , false );
+		cols[1].removeEventListener("click" , paging , false );
 	}
 	
+	if(maxPage !== 0){
+		if(currentPage%4 > 0){
+			cols[currentPage%4].style.background="darkgray";
+		}else{
+			cols[currentPage%4+4].style.background="darkgray";
+		}
+	}
 	
 	if(currentPage === 1){
 		cols[0].removeEventListener("click" , paging , false );
 	}
 	
-	if(currentPage === maxPage){
+	if(currentPage > 0 && currentPage === maxPage){
 		cols[cols.length-1].removeEventListener("click" , paging , false );
 	}
 	

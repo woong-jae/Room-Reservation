@@ -46,6 +46,7 @@
 	#write:hover {
 		background: #951418;
 	}
+	
 </style>
 </head>
 <script type="text/javascript">
@@ -63,7 +64,7 @@
 <%@ include file="./navbar.jsp" %>
 <div id="title">공지사항</div>
 <div style="display:flex;justify-content: center;align-items: flex-end;">
-	<form method="post" action="./notice.jsp" id="search">
+	<form method="get" action="./notice.jsp" id="search">
 		<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
 		<button type="submit">검색</button>
 	</form>

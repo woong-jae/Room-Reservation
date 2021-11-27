@@ -171,7 +171,7 @@ span.close:focus {
 <%!
 	String uid;
 %>
-<div id="title">문의사항</div>
+<div id="title">강의실</div>
 <div class="room-container">
 	<% 
 		if(session.getAttribute("userid") != null)

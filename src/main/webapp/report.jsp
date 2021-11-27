@@ -63,7 +63,7 @@
 <%@ include file="./navbar.jsp" %>
 <div id="title">문의사항</div>
 <div style="display:flex;justify-content: center;align-items: flex-end;">
-	<form method="post" action="./report.jsp" id="search">
+	<form method="get" action="./report.jsp" id="search">
 		<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
 		<button type="submit">검색</button>
 	</form>

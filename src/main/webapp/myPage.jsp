@@ -145,6 +145,7 @@
 	String pageParameter = request.getParameter("page");
 	if(pageParameter == null) pageParameter = "1";
 	
+	//전체 행 개수 및 Page 개수 조회용 sql
 	String sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid"
 			+ " from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room"
 			+ " where timelineid = reservetid" 
@@ -153,26 +154,27 @@
 			+ " and reserveuid = '"+ UserId +"'";
 	
 	int maxPage = 0;
+	int unitPage = 4;
 	
 	try{
 		rs = stmt.executeQuery(sql);
 		rs.last();
 		int rowCount = rs.getRow();
 		rs.beforeFirst();
-		maxPage = (int)(Math.ceil((float)rowCount/4));
+		maxPage = (int)(Math.ceil((float)rowCount/unitPage));
 	}catch (SQLException e) {
 		System.err.println("sql error = " + e.getMessage());
 	}
 	
-	int pageIndex = (Integer.parseInt(pageParameter) - 1) * 4 + 1;
+	int pageIndex = (Integer.parseInt(pageParameter) - 1) * unitPage + 1;
 	
-	//테이블 열 index
+	//테이블에 표시될 열의 index
 	String startIndex = Integer.toString(pageIndex);
-	String endIndex = Integer.toString(pageIndex + 3);
+	String endIndex = Integer.toString(pageIndex + unitPage -1);
 	
-	//indicator index
-	int indicatorStart = ((Integer.parseInt(pageParameter) - 1) / 4) * 4 + 1;
-	int indicatorEnd = (indicatorStart + 3 > maxPage) ? maxPage : indicatorStart + 3;
+	//하단 page indicator index
+	int indicatorStart = ((Integer.parseInt(pageParameter) - 1) / unitPage) * unitPage + 1;
+	int indicatorEnd = (indicatorStart + unitPage -1 > maxPage) ? maxPage : indicatorStart + unitPage -1;
 %>
 <%
 	sql = "SELECT Name, StudentId, Department, RatingId" 
@@ -427,6 +429,9 @@
 	}
 	
 	//paging 코드
+	const unitPage = 4;
+	
+	//click event Listener 부착
 	var cols = document.querySelectorAll(".page-index");
 	[].forEach.call(cols, function(col){
 	  col.addEventListener("click" , paging , false );
@@ -435,25 +440,29 @@
 	const currentPage = <%= pageParameter %>
 	const maxPage = <%= maxPage %>
 	
+	//데이터가 없을 경우 prev, next 버튼에 Listener 제거
 	if(maxPage === 0){
 		cols[0].removeEventListener("click" , paging , false );
 		cols[1].removeEventListener("click" , paging , false );
 	}
 	
+	//데이터가 있을 경우 선택된 칸 색 변경
 	if(maxPage !== 0){
-		if(currentPage%4 > 0){
-			cols[currentPage%4].style.background="#464646";
-			cols[currentPage%4].style.color="white";
+		if(currentPage%unitPage > 0){
+			cols[currentPage%unitPage].style.background="#464646";
+			cols[currentPage%unitPage].style.color="white";
 		}else{
-			cols[currentPage%4+4].style.background="#464646";
-			cols[currentPage%4].style.color="white";
+			cols[currentPage%unitPage+unitPage].style.background="#464646";
+			cols[currentPage%unitPage+unitPage].style.color="white";
 		}
 	}
 	
+	//첫 페이지의 경우 prev 버튼 Listener 제거
 	if(currentPage === 1){
 		cols[0].removeEventListener("click" , paging , false );
 	}
 	
+	//마지막 페이지의 경우 next 버튼 Listener 제거
 	if(currentPage > 0 && currentPage === maxPage){
 		cols[cols.length-1].removeEventListener("click" , paging , false );
 	}

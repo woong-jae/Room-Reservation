@@ -112,8 +112,7 @@
 	if(session.getAttribute("userid") != null)
 		UserId = session.getAttribute("userid").toString();
 	else if(session.getAttribute("managerid") != null) {
-		out.println("<script>alert('관리자는 이용하실 수 없습니다.');</script>");
-		out.println("<script>location.href='main.jsp';</script>");	
+		out.println("<script>location.href='managerPage.jsp';</script>");	
 	}
 	else {
 		out.println("<script>alert('로그인을 하십시오.');</script>");

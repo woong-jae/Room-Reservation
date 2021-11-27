@@ -10,8 +10,8 @@
 		}
 	}
 	function checkForm(){
-		var Password = document.getElementById('password');
-		var CheckPwd = document.getElementById('checkPwd');
+		var Password = document.getElementById('password').value;
+		var CheckPwd = document.getElementById('checkPwd').value;
 	    if(Password.value == '') {
 	        window.alert("새 비밀번호를 입력하세요.");
 	        return false;
@@ -21,6 +21,7 @@
 		    return false;
 	    }
 	    else if (Password != CheckPwd) {
+	    	console.log(Password);
 	    	window.alert("비밀번호 확인이 일치하지 않습니다.");
 		    return false;
 	    }
@@ -29,16 +30,31 @@
 
 <%@ include file="./connectDB.jsp" %>
 <%
+	String sql = "";
+	String Password = "";
 	if(session.getAttribute("userid") != null) { 
-		String sql = "";
 		String UserId = session.getAttribute("userid").toString();
-		String Password = request.getParameter("Password");
+		Password = request.getParameter("Password");
 		if (Password != null) {
 			try {
 				sql = "UPDATE KNU_USER SET Password = '" + Password + "' WHERE UserId = '" + UserId + "'";
 				stmt.executeUpdate(sql);
 				out.println("<script>alert('비밀번호가 변경되었습니다.');</script>");
 				out.println("<script>location.href='myPage.jsp';</script>");
+			} catch (SQLException ex2) {
+				System.err.println("sql error = " + ex2.getMessage());
+			}
+		}
+	}
+	else if(session.getAttribute("managerid") != null) {
+		String ManagerId = session.getAttribute("managerid").toString();
+		Password = request.getParameter("Password");
+		if (Password != null) {
+			try {
+				sql = "UPDATE MANAGER SET MPassword = '" + Password + "' WHERE ManagerId = '" + ManagerId + "'";
+				stmt.executeUpdate(sql);
+				out.println("<script>alert('비밀번호가 변경되었습니다.');</script>");
+				out.println("<script>location.href='managerPage.jsp';</script>");
 			} catch (SQLException ex2) {
 				System.err.println("sql error = " + ex2.getMessage());
 			}

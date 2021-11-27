@@ -132,8 +132,8 @@
 %>
 
 <!-- insert room modal -->
-<div id="room-insert" class="modal">
-  <form class="modal-content" id="room-insert-form" method="post" style="width:15%;" onsubmit="return checkForm();">
+<div id="room-insert" class="manage-modal">
+  <form class="modal-content" id="room-insert-form" method="post" style="width:15%;" onsubmit="return manageCheckForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">강의실 추가</span></b></span>
         	<button type="button" class="close-btn" onclick="closeModal();">X</button>
@@ -165,7 +165,7 @@
 </div>
 
 <!-- delete room modal -->
-<div id="room-delete" class="modal">
+<div id="room-delete" class="manage-modal">
   <form class="modal-content" id="room-delete-form" method="post">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">해당 강의실을 정말로 삭제하시겠습니까?</span></b></span>
@@ -183,7 +183,7 @@
 </div>
 
 <!-- insert timeline modal -->
-<div id="timeline-insert" class="modal">
+<div id="timeline-insert" class="manage-modal">
   <form class="modal-content" id="timeline-insert-form" method="post" style="width:15%;">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">시간대 추가</span></b></span>
@@ -209,7 +209,7 @@
 </div>
 
 <!-- delete timeline modal -->
-<div id="timeline-delete" class="modal">
+<div id="timeline-delete" class="manage-modal">
   <form class="modal-content" id="timeline-delete-form" method="post" style="width:15%;">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">시간대 삭제</span></b></span>
@@ -259,7 +259,7 @@
 			elems[i].style.display = 'none';
 		}
 	}
-	function checkForm(){
+	function manageCheckForm(){
 		var RNumber = document.getElementById('RNumber');
 	    if(RNumber.value == '') {
 	        window.alert("강의실 번호를 입력하세요");

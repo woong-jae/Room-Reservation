@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>회원가입</title>
     <link rel="stylesheet" href="./style/globalStyle.css">
     <style>
     	.btn{
@@ -120,55 +120,60 @@
     	function signUpCheck(){
     		//회원가입 입력값 유효성 체크
     		//정규표현식 이용
-    		const namePattern = /[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;//한글영어
-    		const pwPattern = /[^a-zA-Z0-9!@#$%^&*]/;//영어숫자특수기호
-    		const sidPattern = /[^0-9]///학번
-    		
-    		const input = document.querySelectorAll("input");
-    		
-    		const name = input[0].value;
-    		
-    		if(namePattern.test(name)){
-    			alert("이름은 영문/한글 이외에 들어갈 수 없습니다.");
+    		try{
+    			const namePattern = /[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;//한글영어
+        		const pwPattern = /[^a-zA-Z0-9!@#$%^&*]/;//영어숫자특수기호
+        		const sidPattern = /[^0-9]///학번
+        		
+        		const input = document.querySelectorAll("input");
+        		
+        		const name = input[0].value;
+        		
+        		if(namePattern.test(name)){
+        			alert("이름은 영문/한글 이외에 들어갈 수 없습니다.");
+        			return false;
+        		}
+        		
+        		if(name.length > 7){
+        			alert("7글자까지 작성 가능합니다");
+        			return false;
+        		}
+        		
+        		const pw = input[2].value;
+        		
+        		if(pwPattern.test(pw)){
+        			alert("비밀번호는 영숫자 및 !@#%$^&*만 사용 가능합니다.");
+        			return false;
+        		}
+        		
+        		if(pw.length < 5 || pw.length > 13){
+        			alert("비밀번호는 5~13자로 설정해야합니다.");
+        			return false;
+        		}
+        		
+        		const pw_check = input[3].value;
+        		
+        		if(pw !== pw_check){
+        			alert("비밀번호 값이 다릅니다.");
+        			return false;
+        		}
+        		
+        		const sid = input[4].value;
+        		
+        		if(sid.length != 10){
+        			alert("학번을 올바로 입력하세요.");
+        			return false;
+        		}
+        		
+        		if(id_check === "false"){
+        			alert("ID 중복 체크를 해주세요.");
+        			return false;
+        		}
+        		return true;
+    		}catch(error){
+    			console.log(error);
     			return false;
     		}
-    		
-    		if(name.length > 7){
-    			alert("7글자까지 작성 가능합니다");
-    			return false;
-    		}
-    		
-    		const pw = input[2].value;
-    		
-    		if(pwPattern.test(pw)){
-    			alert("비밀번호는 영숫자 및 !@#%$^&*만 사용 가능합니다.");
-    			return false;
-    		}
-    		
-    		if(pw.length < 5 || pw.length > 13){
-    			alert("비밀번호는 5~13자로 설정해야합니다.");
-    			return false;
-    		}
-    		
-    		const pw_check = input[3].value;
-    		
-    		if(pw !== pw_check){
-    			alert("비밀번호 값이 다릅니다.");
-    			return false;
-    		}
-    		
-    		const sid = input[4].value;
-    		
-    		if(sid.length != 10){
-    			alert("학번을 올바로 입력하세요.");
-    			return false;
-    		}
-    		
-    		if(id_check === "false"){
-    			alert("ID 중복 체크를 해주세요.");
-    			return false;
-    		}
-    		return true;
     	}
     	
     	function makefalse(){

@@ -26,7 +26,7 @@
 	//Connection Create
 	try {
 		conn = DriverManager.getConnection(url, user, pass);
-		stmt = conn.createStatement();
+		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 	}catch(SQLException ex) {
 		ex.printStackTrace();
 		System.err.println("Cannot get a connection: " + ex.getLocalizedMessage());

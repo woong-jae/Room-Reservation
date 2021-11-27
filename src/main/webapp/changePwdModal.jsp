@@ -10,8 +10,8 @@
 		}
 	}
 	function checkForm(){
-		var Password = document.getElementById('password').value;
-		var CheckPwd = document.getElementById('checkPwd').value;
+		var Password = document.getElementById('password');
+		var CheckPwd = document.getElementById('checkPwd');
 	    if(Password.value == '') {
 	        window.alert("새 비밀번호를 입력하세요.");
 	        return false;
@@ -20,50 +20,15 @@
 	    	window.alert("비밀번호는 16자리 미만이어야 합니다.");
 		    return false;
 	    }
-	    else if (Password != CheckPwd) {
-	    	console.log(Password);
+	    else if (Password.value != CheckPwd.value) {
 	    	window.alert("비밀번호 확인이 일치하지 않습니다.");
 		    return false;
 	    }
 	}
 </script>
 
-<%@ include file="./connectDB.jsp" %>
-<%
-	String sql = "";
-	String Password = "";
-	if(session.getAttribute("userid") != null) { 
-		String UserId = session.getAttribute("userid").toString();
-		Password = request.getParameter("Password");
-		if (Password != null) {
-			try {
-				sql = "UPDATE KNU_USER SET Password = '" + Password + "' WHERE UserId = '" + UserId + "'";
-				stmt.executeUpdate(sql);
-				out.println("<script>alert('비밀번호가 변경되었습니다.');</script>");
-				out.println("<script>location.href='myPage.jsp';</script>");
-			} catch (SQLException ex2) {
-				System.err.println("sql error = " + ex2.getMessage());
-			}
-		}
-	}
-	else if(session.getAttribute("managerid") != null) {
-		String ManagerId = session.getAttribute("managerid").toString();
-		Password = request.getParameter("Password");
-		if (Password != null) {
-			try {
-				sql = "UPDATE MANAGER SET MPassword = '" + Password + "' WHERE ManagerId = '" + ManagerId + "'";
-				stmt.executeUpdate(sql);
-				out.println("<script>alert('비밀번호가 변경되었습니다.');</script>");
-				out.println("<script>location.href='managerPage.jsp';</script>");
-			} catch (SQLException ex2) {
-				System.err.println("sql error = " + ex2.getMessage());
-			}
-		}
-	}
-%>
-
-<div id="myModal" class="modal">
-  <form class="modal-content" method="post" action="./myPage.jsp" onsubmit="return checkForm();">
+<div id="pwdModal" class="modal">
+  <form class="modal-content" method="post" action="./changePwd.jsp" onsubmit="return checkForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">비밀번호 변경</span></b></span>
         	<button type="button" class="close-btn" onclick="closeModal('modal');">X</button>
@@ -85,3 +50,5 @@
         </button>
   </form>
 </div>
+
+<jsp:include page="./changePwd.jsp" />

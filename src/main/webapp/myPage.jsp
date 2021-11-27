@@ -29,7 +29,7 @@
 	.mypage-contents {
 		margin: 70px 0 30px 0;
 	    padding: 20px;
-	    height: 300px;
+	    height: 355px;
 	    border: 1px solid lightgray;
 	}
 	#mypage-userInfo {
@@ -37,7 +37,7 @@
 		width: 300px;
 		display: flex;
     	flex-direction: column;
-    	height: 85%;
+    	height: 90%;
     	border-top: 1px solid;
 	}
 	#mypage-roomInfo {
@@ -50,21 +50,14 @@
 	#reserve-table {
 		border-bottom: 1px solid lightgray;
 		border-top: 1px solid;
-		border-collapse: collapse;
 	    border-spacing: 0;
 	}
 	#reserve-table th, #reserve-table td {
-		padding: 10px;
+		padding: 5px;
 		border-bottom: 1px solid lightgray;
 		color: #666;
 		text-align: center;
-	}
-	
-	#reserve-table th button {
-		padding: 10px;
-		border-bottom: 1px solid lightgray;
-		color: #666;
-		text-align: center;
+		height:40px;
 	}
 	
 	.rating {
@@ -75,6 +68,27 @@
 	}
 	.rating:hover {
 		background: gray;
+	}
+	
+	.indicator{
+		width:100%;
+		height:50px;
+		display:flex; 
+		flex-direction: row;
+		justify-content:center;
+	}
+	
+	.page-index{
+		margin-top:15px;
+		padding:10px 20px;
+		width:fit-content;
+		height:fit-content;
+		border : 1px solid darkgray;
+		cursor:pointer;
+	}
+	
+	.page-index:hover{
+		background:lightgray;
 	}
 </style>
 </head>
@@ -127,9 +141,43 @@
 		out.println("<script>alert('로그인을 하십시오.');</script>");
 		out.println("<script>location.href='main.jsp';</script>");
 	}
+	
+	//page 설정
+	String pageParameter = request.getParameter("page");
+	if(pageParameter == null) pageParameter = "1";
+	
+	String sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid"
+			+ " from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room"
+			+ " where timelineid = reservetid" 
+			+ " and timelinerno = reserverno" 
+			+ " and reserverno = roomnumber" 
+			+ " and reserveuid = '"+ UserId +"'";
+	
+	int maxPage = 0;
+	
+	try{
+		rs = stmt.executeQuery(sql);
+
+		rs.last();
+		int rowCount = rs.getRow();
+		rs.beforeFirst();
+		maxPage = (int)(Math.ceil((float)rowCount/4));
+	}catch (SQLException e) {
+		System.err.println("sql error = " + e.getMessage());
+	}
+	
+	int pageIndex = (Integer.parseInt(pageParameter) - 1) * 4 + 1;
+	
+	//테이블 열 index
+	String startIndex = Integer.toString(pageIndex);
+	String endIndex = Integer.toString(pageIndex + 3);
+	
+	//indicator index
+	int indicatorStart = ((Integer.parseInt(pageParameter) - 1) / 4) * 4 + 1;
+	int indicatorEnd = (indicatorStart + 3 > maxPage) ? maxPage : indicatorStart + 3;
 %>
 <%
-	String sql = "SELECT Name, StudentId, Department, RatingId" 
+	sql = "SELECT Name, StudentId, Department, RatingId" 
 			+ " FROM (SELECT * FROM KNU_USER LEFT OUTER JOIN RATING ON UserId = RateUid)"
 			+ "	WHERE UserId = '" + UserId + "'";
 	try{
@@ -182,20 +230,28 @@
 						<th colspan="1"></th>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody class="reserve-list-tbody">
 
 			<%
-				sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid, ROW_NUMBER() over(order by rdate desc) num from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room where timelineid = reservetid and timelinerno = reserverno and reserverno = roomnumber and reserveuid = 'bh2980' order by rdate desc, timeline.starttime desc";
-				//sql = "select * from (select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid, ROW_NUMBER() over(order by rdate desc) num from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room where timelineid = reservetid and timelinerno = reserverno and reserverno = roomnumber and reserveuid = 'bh2980' order by rdate desc, timeline.starttime desc) where num between 1 and 4";
+				sql = "select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid"
+						+ " from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room"
+						+ " where timelineid = reservetid" 
+						+ " and timelinerno = reserverno" 
+						+ " and reserverno = roomnumber" 
+						+ " and reserveuid = '"+ UserId +"'";
+				
+				int count = 0;
+				
+				sql = "select * "
+						+ "from (select reserverno, classification, room.maxavailable, timeline.starttime, timeline.endtime, rdate, rateuid, ROW_NUMBER() over(order by rdate desc) num "
+								+ "from (select * from reserves left outer join rating on reserveRno = rateRno and reserveuid = rateuid), timeline, room "
+								+ "where timelineid = reservetid and timelinerno = reserverno "
+								+ "and reserverno = roomnumber "
+								+ "and reserveuid = '" + UserId + "' "
+								+ "order by rdate desc, timeline.starttime desc) "
+						+ "where num between " + startIndex + " and " + endIndex + "";
 				try{
 					rs = stmt.executeQuery(sql);
-					//rs.last();
-					//int rowCount = rs.getRow()-1;
-					//rs.beforeFirst();
-					//int Maxpage = (int)(Math.ceil((float)rowCount/4));
-					//System.out.println(Maxpage);
-					int count = 0;
-					
 					while(rs.next()){
 						String Rdate = "";
 						count += 1;
@@ -229,23 +285,30 @@
 						
 						out.println(" </tr>");
 					}
-					if (count ==0) {
-						out.println("<tr><td colspan='6'>");
-						out.println("<div style='text-align: center;'>예약 내역이 없습니다.</div>");
-						out.println("</td></tr>");
-					}
-					//out.println("<tr><td colspan='6'>");
-					//for(int i=1; i<=Maxpage; i++){
-					//	out.println(i);
-					//}
-					out.println("</td></tr>");
-					rs.close();
-				} catch (SQLException e) {
+				}catch (SQLException e) {
 					System.err.println("sql error = " + e.getMessage());
+				}
+				if (count ==0) {
+					out.println("<tr><td colspan='6'>");
+					out.println("<div style='text-align: center;'>예약 내역이 없습니다.</div>");
+					out.println("</td></tr>");
+				}else{
+					for(int i=0; i<4-count; i++){
+						out.println("<tr>");
+						out.println("<td colspan='6'></td>");
+						out.println("</tr>");
+					}
 				}
 			%>
 				</tbody>
 			</table>
+			<%
+			out.println("<div class='indicator'><div class='page-index'>Prev</div>");
+			for(int i=indicatorStart; i<=indicatorEnd; i++){
+				out.println("<div class='page-index'>" + i + "</div>");
+			}
+			out.println("<div class='page-index'>Next</div></div>");
+			%>
 		</div>
 	</div>
 </div>
@@ -267,6 +330,43 @@
 		startTime.value = informantion.cells[2].childNodes[0].nodeValue;
 		endTime.value = informantion.cells[3].childNodes[0].nodeValue;
 		openModal('ratingmodal');
+	}
+	
+	var cols = document.querySelectorAll(".page-index");
+	[].forEach.call(cols, function(col){
+	  col.addEventListener("click" , paging , false );
+	});
+	
+	const currentPage = <%= pageParameter %>
+	const maxPage = <%= maxPage %>
+	
+	if(currentPage%4 > 0){
+		cols[currentPage%4].style.background="darkgray";
+	}else{
+		cols[currentPage%4+4].style.background="darkgray";
+	}
+	
+	
+	if(currentPage === 1){
+		cols[0].removeEventListener("click" , paging , false );
+	}
+	
+	if(currentPage === maxPage){
+		cols[cols.length-1].removeEventListener("click" , paging , false );
+	}
+	
+	function paging(event){
+		let index = event.target.childNodes[0].nodeValue;
+		const currentPage = <%= pageParameter %>
+		
+		if(index === "Prev"){
+			index = parseInt(currentPage) - 1;
+		}
+		else if(index === "Next"){
+			index = parseInt(currentPage) + 1;
+		}
+		
+		location.href="./myPage.jsp?page=" + index;
 	}
 </script>
 </body>

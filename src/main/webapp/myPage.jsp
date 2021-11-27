@@ -102,44 +102,6 @@
 </style>
 </head>
 <body>
-<script type="text/javascript">	
-	let roomNumber = null;
-	function openModal(className) {
-		var elems = document.getElementsByClassName(className);
-		for (var i=0;i<elems.length;i+=1){
-			elems[i].style.display = 'block';
-		}
-	}
-	
-	function editInfo(){
-		const shownInputs = document.querySelectorAll(".shown-input");
-		const hiddenInputs = document.querySelectorAll(".hidden-input");
-		
-		shownInputs.forEach(function(shownInput){
-			shownInput.classList.toggle('shown-input');
-			shownInput.classList.toggle('hidden-input');
-		})
-		
-		hiddenInputs.forEach(function(hiddenInput){
-			hiddenInput.classList.toggle('shown-input');
-			hiddenInput.classList.toggle('hidden-input');
-		})
-	}
-	
-	function OKButton(){
-		const shownInputs = document.querySelectorAll(".shown-input");
-		const hiddenInputs = document.querySelectorAll(".hidden-input");
-		
-		shownInputs.forEach(function(shownInput){
-			shownInput.classList.toggle('shown-input');
-			shownInput.classList.toggle('hidden-input');
-		})
-		hiddenInputs.forEach(function(hiddenInput){
-			hiddenInput.classList.toggle('shown-input');
-			hiddenInput.classList.toggle('hidden-input');
-		})
-	}
-</script>
 <%@ include file="./connectDB.jsp" %>
 <%!
 	String Name = "";
@@ -226,6 +188,90 @@
 		System.err.println("sql error = " + e.getMessage());
 	}
 %>
+<script type="text/javascript">	
+	let roomNumber = null;
+	function openModal(className) {
+		var elems = document.getElementsByClassName(className);
+		for (var i=0;i<elems.length;i+=1){
+			elems[i].style.display = 'block';
+		}
+	}
+	
+	function changeVisibility(){
+		const shownInputs = document.querySelectorAll(".shown-input");
+		const hiddenInputs = document.querySelectorAll(".hidden-input");
+		
+		shownInputs.forEach(function(shownInput){
+			shownInput.classList.toggle('shown-input');
+			shownInput.classList.toggle('hidden-input');
+		})
+		
+		hiddenInputs.forEach(function(hiddenInput){
+			hiddenInput.classList.toggle('shown-input');
+			hiddenInput.classList.toggle('hidden-input');
+		})
+	}
+	
+	function editInfo(){
+		document.getElementById("name").value = '<%= Name %>';
+		document.getElementById("sid").value = '<%= StudentId %>';
+		const select = document.getElementById('major');
+		
+		const oriMajor = '<%=Department %>'
+		
+		if(oriMajor === '컴퓨터공학부'){
+			select[0].selected = true;
+		}else if(oriMajor === '전기공학과'){
+			select[1].selected = true;
+		}else{
+			select[2].selected = true;
+		}
+		
+		changeVisibility();
+	}
+	
+	function OKButton(){
+		changeVisibility();
+	}
+	
+	function editCheck(){
+		const namePattern = /[^ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z]/;//한글영어
+		
+		let name = document.getElementById("name").value;
+		let sid = document.getElementById("sid").value;
+		let major = document.getElementById('major').value;
+		
+		if(namePattern.test(name)){
+			alert("이름은 영문/한글 이외에 들어갈 수 없습니다.");
+			changeVisibility();
+			return false;
+		}
+		
+		if(name.length > 7){
+			alert("7글자까지 작성 가능합니다");
+			changeVisibility();
+			return false;
+		}
+		
+		if(sid.length != 10){
+			alert("학번을 올바로 입력하세요.");
+			changeVisibility();
+			return false;
+		}
+		
+		if(!confirm('이름 : ' + name + '\n학번 : ' + sid + '\n학과 : ' + major + '\n\n 변경하려는 정보가 맞습니까?')){
+			document.getElementById('ok-btn').setAttribute('type','button');
+			changeVisibility();
+			return false;
+		}
+		
+		return true;
+	}
+	
+	function ifChange(){
+		document.getElementById('ok-btn').setAttribute('type','sumbit');
+	}
+</script>
 
 <%@ include file="./navbar.jsp" %>
 <div id="title">마이페이지</div>
@@ -233,27 +279,28 @@
 	<div id="mypage-wrapper">
 		<div class="mypage-contents">
 			<h3 style="text-align:center;margin-top: 0;">내 정보</h3>
-			<form id="mypage-userInfo" action="./editInfo.jsp">
-				<div><span>이름&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= Name %></span><input class="hidden-input" id="name" name="name" value=<%= Name %> /></div>
-				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= StudentId %></span><input class="hidden-input" id="sid" name="sid" value=<%= StudentId %> /></div>
+			<form id="mypage-userInfo" action="./editInfo.jsp" onsubmit="return editCheck();" method="post">
+				<div><span>이름&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= Name %></span><input class="hidden-input" id="name" name="name" onchange="ifChange()" value=<%= Name %> /></div>
+				<div><span>학번&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= StudentId %></span><input class="hidden-input" id="sid" name="sid" type="number" onchange="ifChange()" value=<%= StudentId %> /></div>
 				<div><span>아이디 :&nbsp;&nbsp;&nbsp;</span><%= UserId %></div>
 				<div><span>비밀번호 :&nbsp;&nbsp;&nbsp;</span><button id="pwd-btn" type="button" onclick="openModal('modal');">비밀번호 변경</button></div>
 				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= Department %></span>
-					<select class="hidden-input" id="major" name="major">
+					<select class="hidden-input" id="major" name="major" onchange="ifChange()">
 			            <option value="컴퓨터공학부">컴퓨터공학부</option>
 			            <option value="전기공학과">전기공학과</option>
 			            <option value="전자공학부">전자공학부</option>
 			        </select>
 		        </div>
 				<div>
-					<span class="shown-input"><button id=edit-btn" type="button" onclick="editInfo();">정보 수정(구현중)</button></span>
-					<button class="hidden-input" onclick="OKButton();">확인</button>
-					<button id="delete-btn" type="button" onclick="openModal('deletemodal');">탈퇴하기</button>
+					<span class="shown-input"><button id=edit-btn" type="button" onclick="editInfo()">정보 수정</button></span>
+					<button id="ok-btn" class="hidden-input" type="button" onclick="OKButton()">확인</button>
+					<button id="cancel-btn" class="hidden-input" type="button" onclick="changeVisibility()">취소</button>
+					<button id="delete-btn" class="shown-input" type="button" onclick="openModal('deletemodal');">탈퇴하기</button>
 				</div>
-				<jsp:include page="./changePwdModal.jsp" />
-				<jsp:include page="./ratingWriteModal.jsp" />
-				<jsp:include page="./deleteAccountModal.jsp" />
 			</form>
+			<jsp:include page="./changePwdModal.jsp" />
+			<jsp:include page="./ratingWriteModal.jsp" />
+			<jsp:include page="./deleteAccountModal.jsp" />
 		</div>
 		<div id="mypage-roomInfo" class="mypage-contents">
 			<h3 style="text-align:center;margin-top: 0;">강의실 예약내역</h3>

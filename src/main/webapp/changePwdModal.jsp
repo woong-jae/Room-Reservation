@@ -28,27 +28,27 @@
 </script>
 
 <div id="pwdModal" class="modal">
-  <form class="modal-content" method="post" action="./changePwd.jsp" onsubmit="return checkForm();">
+  <div class="modal-content">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">비밀번호 변경</span></b></span>
         	<button type="button" class="close-btn" onclick="closeModal('modal');">X</button>
         </p>
-        <div style="display:flex;flex-direction:column;align-items: baseline;">
-         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
-         		<div>새 비밀번호:</div>
-         		<input type="password" style="width: 73%;margin-left: auto;" name="Password" id="password">
-         	</div>
-         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
-         		<div>비밀번호 확인:</div>
-         		<input type="password" style="width: 73%;margin-left: auto;" id="checkPwd">
-         	</div>
-        </div>
-        <button class="submit-btn" type="submit">
-            <span class="pop_bt" style="font-size: 13pt;" >
-                 제출
-            </span>
-        </button>
-  </form>
+        <form method="post" action="./changePwd.jsp" onsubmit="return checkForm();">
+	        <div style="display:flex;flex-direction:column;align-items: baseline;">
+	         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
+	         		<div>새 비밀번호:</div>
+	         		<input type="password" style="width: 73%;margin-left: auto;" name="Password" id="password">
+	         	</div>
+	         	<div style="width: 100%;margin-bottom: 20px;display: flex;align-items: flex-end;">
+	         		<div>비밀번호 확인:</div>
+	         		<input type="password" style="width: 73%;margin-left: auto;" id="checkPwd">
+	         	</div>
+	        </div>
+	        <button class="submit-btn" type="submit">
+	            <span class="pop_bt" style="font-size: 13pt;" >
+	                 제출
+	            </span>
+	        </button>
+        </form>
+  </div>
 </div>
-
-<jsp:include page="./changePwd.jsp" />

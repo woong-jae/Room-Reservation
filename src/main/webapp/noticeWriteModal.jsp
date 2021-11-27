@@ -76,6 +76,9 @@
          	<div style="width: 100%;margin-bottom: 5px;text-align: left;">내용:</div>
          	<div style="width: 100%;margin-bottom: 20px;">
          		<textarea style="width: 100%;height: 150px;resize: none;" name="NContent" id="NContent"></textarea>
+         		<div style="text-align:right">
+					<span id="byte-count">0</span><span> Bytes</span>
+				</div>
          	</div>
         </div>
         <button class="submit-btn" type="submit">
@@ -85,4 +88,48 @@
         </button>
   </form>
 </div>
+
+<script>
+document.getElementById('NTitle').addEventListener('keyup', checkTitleByte);
+document.querySelector('textarea').addEventListener('keyup', checkContentByte);
+var byteCount = document.getElementById('byte-count');
+
+let title = "";
+let message = "";
+const MAX_TITLE_LIMIT = 50;
+const MAX_CONTENT_LIMIT = 300;
+
+function checkTitleByte(event){
+	let count = 0;
+	
+	for(index = 0; index < event.target.value.length; index++){
+		if(event.target.value.charCodeAt(index) <= 128) count++;
+		else count += 2;
+	}
+	
+	if(count <= MAX_TITLE_LIMIT){
+		title = event.target.value;
+	}else{
+		alert("제목은 " + MAX_TITLE_LIMIT + " Bytes만큼만 입력할 수 있습니다.");
+		event.target.value = title;
+	}
+}
+
+function checkContentByte(event){
+	let count = 0;
+	
+	for(index = 0; index < event.target.value.length; index++){
+		if(event.target.value.charCodeAt(index) !== 10 && event.target.value.charCodeAt(index) <= 128) count++;
+		else count += 2;
+	}
+	
+	if(count <= MAX_CONTENT_LIMIT){
+		message = event.target.value;
+		byteCount.innerText = count;
+	}else{
+		alert("내용은 " + MAX_CONTENT_LIMIT + " Bytes만큼만 입력할 수 있습니다.");
+		event.target.value = message;
+	}
+}
+</script>
 

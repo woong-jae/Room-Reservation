@@ -48,14 +48,39 @@ nav {
     margin-left: 50px;
     margin-right: 80px;
 }
+
+.hidden{
+	opacity:0%;
+	cursor:default;
+}
 </style>
+
+<%
+	String id = "";
+	if(session.getAttribute("userid") == null){
+		if(session.getAttribute("managerid") == null){
+			id = null;
+		}else{
+			id = session.getAttribute("managerid").toString();
+		}
+	}else{
+		id = session.getAttribute("userid").toString();
+	}
+%>
 
 <nav>
 	<a href="./main.jsp" class="nav-item" id="nav-logo">KNU&nbsp;<span>ROOM</span></a>
 	<div id="nav-wrapper">
+		<%
+		if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
+		%>
+		<a class="nav-item hidden"></a>
+		<%
+		}
+		%>
 		<a href="./notice.jsp" class="nav-item">공지사항</a>
 		<a href="./report.jsp" class="nav-item">문의사항</a>
-		<a href="./myPage.jsp" class="nav-item">마이페이지</a>
+		<a href="./rooms.jsp" class="nav-item">예약하기</a>
 		<%
 		if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
 		%>
@@ -63,6 +88,7 @@ nav {
 		<%
 		}else{
 		%>
+		<a href="./myPage.jsp" class="nav-item"><%= id %> 님</a>
 		<a href="./logout.jsp" class="nav-item" id="nav-login">로그아웃</a>
 		<%} %>
 	</div>

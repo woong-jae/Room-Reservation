@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>매니저 페이지</title>
+<link rel="icon" href="./image/favicon.png">
 <link rel="stylesheet" href="./style/globalStyle.css">
 <link rel="stylesheet" href="./style/modalStyle.css">
 <style type="text/css">
@@ -148,7 +149,7 @@
 								out.println("<button class='room-elem' name='"+rs.getString(1)+"'>");
 								out.println(rs.getString(1)+"</button>");
 							}
-							if (count ==0) {
+							if (count == 0) {
 								out.println("<div style='width:100%;text-align: center;'>등록된 강의실이 없습니다.</div>");
 							}
 							rs.close();

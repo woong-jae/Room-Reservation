@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이 페이지</title>
+<link rel="icon" href="./image/favicon.png">
 <link rel="stylesheet" href="./style/globalStyle.css">
 <style type="text/css">
 	#title {
@@ -441,9 +442,11 @@
 	
 	if(maxPage !== 0){
 		if(currentPage%4 > 0){
-			cols[currentPage%4].style.background="darkgray";
+			cols[currentPage%4].style.background="#464646";
+			cols[currentPage%4].style.color="white";
 		}else{
-			cols[currentPage%4+4].style.background="darkgray";
+			cols[currentPage%4+4].style.background="#464646";
+			cols[currentPage%4].style.color="white";
 		}
 	}
 	
@@ -467,6 +470,57 @@
 		}
 		
 		location.href="./myPage.jsp?page=" + index;
+	}
+	
+	
+	//이름 Byte 관리 코드
+	document.getElementById('name').addEventListener('keyup', checkNameByte);
+	const number = document.getElementById('sid');
+	number.addEventListener('keyup', checkSIDByte);
+	
+	number.onkeydown = function(e) {
+	    if(!((e.keyCode > 95 && e.keyCode < 106)
+	      || (e.keyCode > 47 && e.keyCode < 58) 
+	      || e.keyCode == 8)) {
+	        return false;
+	    }
+	}
+	
+	let name = "";
+	const MAX_NAME_LIMIT = 15;
+	
+	function checkNameByte(event){
+		let count = 0;
+		
+		for(index = 0; index < event.target.value.length; index++){
+			if(event.target.value.charCodeAt(index) <= 128) count++;
+			else count += 2;
+		}
+		
+		if(count <= MAX_NAME_LIMIT){
+			name = event.target.value;
+		}else{
+			alert("이름은 " + MAX_NAME_LIMIT + " Bytes만큼만 입력할 수 있습니다.\n(한글 : 2 Bytes, 영문 : 1 Bytes))");
+			event.target.value = name;
+		}
+	}
+	
+	let sid = "";
+	const MAX_SID_LIMIT = 10;
+	
+	function checkSIDByte(event){
+		let count = 0;
+		
+		for(index = 0; index < event.target.value.length; index++){
+			if(event.target.value.charCodeAt(index) <= 128) count++;
+			else count += 2;
+		}
+		
+		if(count <= MAX_SID_LIMIT){
+			sid = event.target.value;
+		}else{
+			event.target.value = sid;
+		}
 	}
 </script>
 </body>

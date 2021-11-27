@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="icon" href="./image/favicon.png">
     <link rel="stylesheet" href="./style/globalStyle.css">
     <style>
     	.login-outer-area{
@@ -157,8 +158,8 @@
 		<div class="login-area">
 			<h1 class="title" id="title">Login</h1>
 			<form class="input-area" name="login" method="post" action="./loginDB.jsp">
-				<input class="login_id" name="id" placeholder="아이디" required>
-			    <input class="login_pw" name="pw"  placeholder="비밀번호" type="password" required>
+				<input class="login_id" name="id" placeholder="아이디" maxlength="15" required>
+			    <input class="login_pw" name="pw"  placeholder="비밀번호" maxlength="15" type="password" required>
 			    <input class="submit_btn" type="submit" value="로그인">
 			    <div class="toggle-bg" id="toggle" onclick="changeLoginMode()">
 				    <div class="toggle-circle" id="toggle_circle">

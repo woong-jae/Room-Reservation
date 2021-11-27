@@ -147,7 +147,7 @@ function rateCheck(){
 			message = event.target.value;
 			byteCount.innerText = count;
 		}else{
-			alert("평가는 " + MAX_LIMIT + " Bytes만큼만 입력할 수 있습니다.");
+			alert("내용은 " + MAX_LIMIT + " Bytes만큼만 입력할 수 있습니다.");
 			event.target.value = message;
 		}
 	}

@@ -132,11 +132,11 @@
 %>
 
 <!-- insert room modal -->
-<div id="room-insert" class="manage-modal">
+<div id="room-insert" class="manage-modal room-insert-model">
   <form class="modal-content" id="room-insert-form" method="post" style="width:15%;" onsubmit="return manageCheckForm();">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">강의실 추가</span></b></span>
-        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal('room-insert-model');">X</button>
         </p>
         <div style="text-align: center;margin-bottom: 20px;">
          	<div style="width: 100%;margin: 20px 0;display: flex;">
@@ -165,11 +165,11 @@
 </div>
 
 <!-- delete room modal -->
-<div id="room-delete" class="manage-modal">
+<div id="room-delete" class="manage-modal room-delete-model">
   <form class="modal-content" id="room-delete-form" method="post">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">해당 강의실을 정말로 삭제하시겠습니까?</span></b></span>
-        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal('room-delete-model');">X</button>
         </p>
         <div style="text-align: center;margin-bottom: 20px;">
          	삭제한 데이터는 복구할 수 없습니다.
@@ -183,11 +183,11 @@
 </div>
 
 <!-- insert timeline modal -->
-<div id="timeline-insert" class="manage-modal">
+<div id="timeline-insert" class="manage-modal timeline-insert-modal">
   <form class="modal-content" id="timeline-insert-form" method="post" style="width:15%;">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">시간대 추가</span></b></span>
-        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal('timeline-insert-modal');">X</button>
         </p>
         <div style="text-align: center;margin-bottom: 20px;">
         	<div style="width: 100%;margin: 20px 0;display: flex;">
@@ -209,11 +209,11 @@
 </div>
 
 <!-- delete timeline modal -->
-<div id="timeline-delete" class="manage-modal">
+<div id="timeline-delete" class="manage-modal delete-timeline-modal">
   <form class="modal-content" id="timeline-delete-form" method="post" style="width:15%;">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">시간대 삭제</span></b></span>
-        	<button type="button" class="close-btn" onclick="closeModal();">X</button>
+        	<button type="button" class="close-btn" onclick="closeModal('delete-timeline-modal');">X</button>
         </p>
         <div style="text-align: center;margin-bottom: 20px;">
         	<div style="width: 100%;margin: 20px 0;display: flex;">
@@ -253,12 +253,7 @@
 		}
 		
 	}
-	function closeModal(){
-		var elems = document.getElementsByClassName("modal");
-		for (var i=0;i<elems.length;i+=1){
-			elems[i].style.display = 'none';
-		}
-	}
+
 	function manageCheckForm(){
 		var RNumber = document.getElementById('RNumber');
 	    if(RNumber.value == '') {

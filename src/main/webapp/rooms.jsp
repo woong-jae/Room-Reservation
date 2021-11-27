@@ -5,9 +5,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>강의실</title>
+<link rel="icon" href="./image/favicon.png">
 <link rel="stylesheet" href="./style/globalStyle.css">
 <style>
+#title {
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    font-weight: 500;
+	height: 130px;
+	background: #f0f0f0;
+}
+
 .room-container {
 	max-width: 1000px;
 	margin: 0 auto;
@@ -160,6 +171,7 @@ span.close:focus {
 <%!
 	String uid;
 %>
+<div id="title">문의사항</div>
 <div class="room-container">
 	<% 
 		if(session.getAttribute("userid") != null)

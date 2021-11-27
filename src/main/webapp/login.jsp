@@ -91,7 +91,7 @@
     		width:26px;
     		height:26px;
     		border-radius:35px;
-    		margin:4px;
+    		margin:4.25px;
     	}
     	
     	.toggle-circle-click{
@@ -99,7 +99,7 @@
     		width:26px;
     		height:26px;
     		border-radius:35px;
-    		margin:4px;
+    		margin:4.25px;
     	}
     	
     	.toggle-forwrad{
@@ -128,7 +128,7 @@
     	
     	@-webkit-keyframes toggle-forwrad {
 		  0% {
-		    margin-left:4px;
+		    margin-left:4.25px;
 		  }
 		  100% {
 		    margin-left:30px;
@@ -140,7 +140,7 @@
 		    margin-left:30px;
 		  }
 		  100% {
-		    margin-left:4px;
+		    margin-left:4.25px;
 		  }
 		}
     </style>

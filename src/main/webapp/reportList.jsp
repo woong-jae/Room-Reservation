@@ -46,7 +46,7 @@
 		display: flex;
 		flex-direction: column;
 	    align-items: center;
-	    margin-top: 20px;
+	    margin-top: 30px;
 	    min-height: 340px;
 	}
 	#report-table {
@@ -61,6 +61,7 @@
 		color: #666;
 		text-align:center;
 	}
+
 	.report-title {
 		cursor: pointer;
 		text-decoration: none;
@@ -135,6 +136,7 @@
 							out.println("<td style='text-align:left;'><a class='report-title' href='./reportContent.jsp?ReportId="
 								+ rs.getInt(2) + "'>"+Rtitle+"</a></td>");
 						}
+						else if(i == 4) out.println("<td>"+rs.getString(i).substring(0, 10)+"</td>");
 						else out.println("<td>"+rs.getString(i)+"</td>");
 					}
 					out.println(" </tr>");

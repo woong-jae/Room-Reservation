@@ -73,7 +73,7 @@
 	}
 	.widget-title button:hover {
 		background: lightgray;
-	}	
+	}
 </style>
 </head>
 <body>
@@ -104,5 +104,14 @@
 	</div>
 </div>
 <%@ include file="./footer.jsp" %>
+<script>
+	const trs = document.querySelectorAll("tr");
+	for(i=1; i<=5; i++){
+		trs[i].style.height = "65px";
+	}
+	for(i=12; i<=16; i++){
+		trs[i].style.height = "65px";
+	}
+</script>
 </body>
 </html>

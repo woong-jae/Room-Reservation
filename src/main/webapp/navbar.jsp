@@ -26,6 +26,11 @@ nav {
 .nav-item:hover {
 	background: #fafafa;
 }
+.right-border{
+	height:15px;
+	border-right : 1px solid #666;
+}
+
 #nav-logo {
 	margin-right: 220px;
 	margin-left: 80px;
@@ -49,11 +54,50 @@ nav {
     margin-right: 80px;
 }
 
-.hidden{
-	opacity:0%;
-	cursor:default;
+.menu{
+	display:grid;
+	grid-template-rows:1fr 1px 1fr;
+	text-align:center;
+	width:100px; 
+	height:100px; 
+	color:black;
+	background-color:white; 
+	position:absolute; 
+	border: 1px solid lightgray;
+	z-index: 0; 
+	top:80px;
+	border-radius:5px;
+	margin-left:50px;
 }
+
+.menu div{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.menu-item{
+	cursor: pointer;
+	text-decoration: none;
+    color: black;
+}
+
+.menu div:hover{
+	background: #fafafa;
+}
+
+.hidden{
+	display:none
+}
+
 </style>
+<script>
+	function showhide(){
+		const menu = document.getElementById("menu");
+		
+		menu.classList.toggle('hidden');
+	}
+</script>
 
 <%
 	String id = "";
@@ -71,16 +115,11 @@ nav {
 <nav>
 	<a href="./main.jsp" class="nav-item" id="nav-logo">KNU&nbsp;<span>ROOM</span></a>
 	<div id="nav-wrapper">
-		<%
-		if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
-		%>
-		<a class="nav-item hidden"></a>
-		<%
-		}
-		%>
 		<a href="./notice.jsp" class="nav-item">공지사항</a>
+		<div class="right-border"></div>
 		<a href="./report.jsp" class="nav-item">문의사항</a>
-		<a href="./rooms.jsp" class="nav-item">예약하기</a>
+		<div class="right-border"></div>
+		<a href="./rooms.jsp" class="nav-item">강의실</a>
 		<%
 		if(session.getAttribute("userid") == null && session.getAttribute("managerid") == null){
 		%>
@@ -88,8 +127,14 @@ nav {
 		<%
 		}else{
 		%>
-		<a href="./myPage.jsp" class="nav-item"><%= id %> 님</a>
-		<a href="./logout.jsp" class="nav-item" id="nav-login">로그아웃</a>
+		<div>
+			<div class="nav-item" id="nav-login" style="z-index: 2;" onclick="showhide()"><%= id %> ▼</div>
+			<div id="menu" class="menu hidden">
+				<div><a class="menu-item" href="./myPage.jsp">내 정보</a></div>
+				<div style="width:35px; margin-left:32.5px; border-bottom:1px solid #d0d0d0"></div>
+				<div><a class="menu-item" href="./logout.jsp">로그아웃</a></div>
+			</div>
+		</div>
 		<%} %>
 	</div>
 </nav>

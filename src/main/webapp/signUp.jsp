@@ -10,6 +10,46 @@
     <link rel="icon" href="./image/favicon.png">
     <link rel="stylesheet" href="./style/globalStyle.css">
     <style>
+    	#title {
+			display: flex;
+		    align-items: center;
+		    justify-content: center;
+		    font-size: 1.5em;
+		    font-weight: 500;
+			height: 130px;
+			background: #f0f0f0;
+		}
+    	
+    	.signup-outer-area{
+    		height:80%;
+    	}
+    	
+    	div form{
+    		display:flex;
+    		flex-direction: column;
+    		width:30%;
+    		height:100%;
+    		margin:50px auto 0px;
+    	}
+    	
+    	input{
+    		height:30px;
+    		border-width:1px;
+    		border-radius:5px;
+    		padding-left:10px;
+    	}
+		
+    	select{
+    		height:37px;
+    		border-radius:5px;
+    		padding-left:10px;
+    	}
+    	
+    	select:hover{
+    		background:#f0f0f0;
+    		cursor:pointer;
+    	}
+    	
     	.btn{
 	    	background:#b41a1f;
 	    	font-size:1em;
@@ -34,42 +74,6 @@
     	
     	.id_check_btn:hover{
     		background:#606060;
-    		cursor:pointer;
-    	}
-    	
-    	.signup-outer-area{
-    		height:100%;
-    	}
-    	
-    	.title{
-    		width:100%;
-    		font-size:5em;
-    		text-align:center;
-    	}
-    	
-    	div form{
-    		display:flex;
-    		flex-direction: column;
-    		width:30%;
-    		height:80%;
-    		margin:0 auto;
-    	}
-    	
-    	input{
-    		height:30px;
-    		border-width:1px;
-    		border-radius:5px;
-    		padding-left:10px;
-    	}
-		
-    	select{
-    		height:37px;
-    		border-radius:5px;
-    		padding-left:10px;
-    	}
-    	
-    	select:hover{
-    		background:#f0f0f0;
     		cursor:pointer;
     	}
     	
@@ -178,9 +182,8 @@
 </head>
 <body>
 <%@ include file="./navbar.jsp" %>
+<div id="title">회원가입</div>
 <div class="signup-outer-area">
-	<div>
-		<h1 class="title">회원가입</h1>
     <form name="signup" method="post" action="./signUpDB.jsp" onsubmit="return signUpCheck()">
     	<p>이름</p>
         <input name="name" id="name" required>
@@ -201,7 +204,6 @@
         <input id="sid" name="sid" type="number" required>
         <input class="btn" style="margin-top:30px;"type="submit" value="회원가입">
     </form>
-	</div>
 </div>
 <%@ include file="./footer.jsp" %>
 <script>

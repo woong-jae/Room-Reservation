@@ -19,37 +19,76 @@
 	background: #f0f0f0;
 }
 
+#notice-wrapper {
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    margin-top: 20px;	
+}
+
+#notice-table {
+	border-bottom: 1px solid lightgray;
+	border-top: 1px solid;
+	border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#notice-table th, #notice-table td {
+	padding: 10px;
+	border-bottom: 1px solid lightgray;
+	color: #666;
+}
+
+.notice-title {
+	cursor: pointer;
+	text-decoration: none;
+	color: #666;
+}
+
+.notice-title:hover {
+	color: black;
+}
+
+
 .room-container {
 	max-width: 1000px;
 	margin: 0 auto;
 }
 
 .accordion {
-	background-color: #eee;
-	color: #444;
 	cursor: pointer;
-	display: flex;
-	justify-content: center;
-	padding: 18px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	background-color:white;
+	padding: 18px 0;
 	width: 100%;
-	border: none;
+	border:none;
+	border-bottom: 1px solid lightgray;
 	outline: none;
 	transition: 0.4s;
 }
 
+.button-label{
+	font-size : 1.2em;
+	color:#666;
+}
+
 .active, .accordion:hover {
-	color: whitesmoke;
 	background-color: rgb(193, 55, 54);
 }
 
+.active div, .accordion:hover div {
+	color:white;
+}
+
 .panel {
-	background-color: white;
+	width: 100%;
+	background-color: #eee;
 	max-height: 0;
 	overflow: hidden;
 	transition: max-height 0.2s ease-out;
 	display: flex;
 	justify-content: space-evenly;
-	width: 100%;
 }
 
 .panel-item {
@@ -60,9 +99,9 @@
 	border: none;
 	outline: none;
 	cursor: pointer;
-	background-color: #fff;
 	border-bottom: solid 1px;
 }
+
 button.panel-item:hover {
 	background-color: bisque;
 }
@@ -101,11 +140,6 @@ button.panel-item:hover {
 
 .timeline-container {
 	width: 60%;
-}
-
-.button-label {
-	width: 200px;
-	font-size: 1.3rem;
 }
 
 .modal {
@@ -156,6 +190,7 @@ span.close:focus {
   text-decoration: none;
   cursor: pointer;
 }
+
 </style>
 <script>
 	window.onpageshow = function(event) {
@@ -173,6 +208,25 @@ span.close:focus {
 	String mid;
 %>
 <div id="title">강의실</div>
+<div id="notice-wrapper">
+	<table id="notice-table">
+		<colgroup>
+			<col width="198px">
+			<col width="198px">
+			<col width="198px">
+			<col width="198px">
+			<col width="198px">
+		</colgroup>
+		<thead>
+				<tr><th colspan="1">강의실</th>
+				<th colspan="1">분류</th>
+				<th colspan="1">최대 인원</th>
+				<th colspan="1">평점</th>
+				<th colspan="1">예약 가능 여부</th>
+			</tr>
+		</thead>
+	</table>
+</div>
 <div class="room-container">
 	<% 
 		if(session.getAttribute("userid") != null)
@@ -282,7 +336,7 @@ span.close:focus {
 		// Display
 		for (int i = 0; i < rooms.size(); i++) {
 			out.println("<button class=\"accordion\" id='" + rooms.get(i).roomNo + "'>");
-			out.println("<div class=\"button-label\">" + rooms.get(i).roomNo + "호</div>");
+			out.println("<div class=\"button-label\">" + rooms.get(i).roomNo + "</div>");
 			out.println("<div class=\"button-label\">");
 			switch (rooms.get(i).classification) {
 				case "Large": out.println("대형 강의실");
@@ -293,7 +347,11 @@ span.close:focus {
 					break;
 				default: out.println("Unknown");
 			}
+			
 			out.println("</div>");
+			out.println("<div class=\"button-label\">" + rooms.get(i).maxAvail + "</div>");
+			out.println("<div class=\"button-label\">" + (rooms.get(i).rate > 0 ? Math.round(rooms.get(i).rate*100)/100.0 : "-") + "</div>");
+			out.println("<div class=\"button-label\">" + (rooms.get(i).timelines.size() > 0 ? "Y" : "N") + "</div>");
 			out.println("</button>");
 			
 			out.println("<div class=\"panel\">");

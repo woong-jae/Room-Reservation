@@ -17,6 +17,7 @@
 		height: 130px;
 		background: #f0f0f0;
 	}
+	
 	#search {
 		margin-top: 20px;
 		margin-left: 50px;
@@ -63,7 +64,7 @@
 <body>
 <%@ include file="./navbar.jsp" %>
 <div id="title">공지사항</div>
-<div style="display:flex;justify-content: center;align-items: flex-end;">
+<div style="display:flex; justify-content: center; align-items: flex-end;">
 	<form method="get" action="./notice.jsp" id="search">
 		<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
 		<button type="submit">검색</button>

@@ -46,7 +46,7 @@
 		display: flex;
 		flex-direction: column;
 	    align-items: center;
-	    margin-top: 30px;
+	    margin-top: 20px;
 	    min-height: 340px;
 	}
 	#report-table {
@@ -59,6 +59,7 @@
 		padding: 10px;
 		border-bottom: 1px solid lightgray;
 		color: #666;
+		text-align:center;
 	}
 	.report-title {
 		cursor: pointer;
@@ -131,7 +132,7 @@
 						if (i == 3) {
 							String Rtitle = rs.getString(3);
 							if (ReportMid != null) Rtitle +=  "  <span style='font-weight: bold;color: #07ba07;'>✓</span>";
-							out.println("<td><a class='report-title' href='./reportContent.jsp?ReportId="
+							out.println("<td style='text-align:left;'><a class='report-title' href='./reportContent.jsp?ReportId="
 								+ rs.getInt(2) + "'>"+Rtitle+"</a></td>");
 						}
 						else out.println("<td>"+rs.getString(i)+"</td>");

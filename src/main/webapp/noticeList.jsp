@@ -45,7 +45,7 @@
 		display: flex;
 		flex-direction: column;
 	    align-items: center;
-	    margin-top: 30px;
+	    margin-top: 20px;
 	}
 	#notice-table {
 		border-bottom: 1px solid lightgray;
@@ -57,6 +57,7 @@
 		padding: 10px;
 		border-bottom: 1px solid lightgray;
 		color: #666;
+		text-align:center;
 	}
 	.notice-title {
 		cursor: pointer;
@@ -127,7 +128,7 @@
 					out.println("<tr class='notice-item'>");
 					for(int i=1;i<=4;i++) {
 						if (i == 2) 
-							out.println("<td><a class='notice-title' href='./noticeContent.jsp?NoticeId="
+							out.println("<td style='text-align:left;'><a class='notice-title' href='./noticeContent.jsp?NoticeId="
 								+ rs.getInt(1) + "'>"+rs.getString(2)+"</a></td>");
 						else out.println("<td>"+rs.getString(i)+"</td>");
 					}

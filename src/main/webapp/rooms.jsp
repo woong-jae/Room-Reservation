@@ -170,12 +170,16 @@ span.close:focus {
 <%@ include file="./connectDB.jsp" %>
 <%!
 	String uid;
+	String mid;
 %>
 <div id="title">강의실</div>
 <div class="room-container">
 	<% 
 		if(session.getAttribute("userid") != null)
 			uid = session.getAttribute("userid").toString();
+	
+		if(session.getAttribute("managerid") != null)
+			mid = session.getAttribute("managerid").toString();
 	
 		class Review {
 			public String uid;
@@ -363,7 +367,9 @@ span.close:focus {
 				} else {
 					input = elem.target.parentNode.value;
 				}
-			} else {
+			} else if(<%= mid != null ? "'" + mid + "'" : null %>){
+				window.alert("매니저는 예약 할 수 없습니다.\n사용자 계정으로 로그인 하세요.");
+			}else {
 				window.alert("로그인을 하십시오.");
 				location.href="login.jsp";
 			}

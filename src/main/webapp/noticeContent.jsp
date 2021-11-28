@@ -160,7 +160,7 @@
 <!-- delete modal -->
 <div id="modal-delete" class="modal">
   <form class="modal-content" method="post" action="./noticeContent.jsp?NoticeId=<%= NoticeId %>&Delete=yes">
-        <p style="display: flex;justify-content: center;align-items: flex-end;"><span style="font-size: 20pt;">
+        <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">해당 공지를 정말로 삭제하시겠습니까?</span></b></span>
         	<button type="button" class="close-btn" onclick="closeModal();">X</button>
         </p>

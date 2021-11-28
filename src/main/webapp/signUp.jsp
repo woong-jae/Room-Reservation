@@ -196,7 +196,7 @@
         <input name="pw_check" type="password" maxlength="15" required>
         <p>전공</p>
         <select name="major" required>
-            <option value="컴퓨터공학부" selected>컴퓨터공학부</option>
+            <option value="컴퓨터학부" selected>컴퓨터학부</option>
             <option value="전기공학과">전기공학과</option>
             <option value="전자공학부">전자공학부</option>
         </select>

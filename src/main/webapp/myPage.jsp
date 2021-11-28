@@ -300,7 +300,7 @@
 				<div><span>비밀번호 :&nbsp;&nbsp;&nbsp;</span><button id="pwd-btn" type="button" onclick="openModal('modal');">비밀번호 변경</button></div>
 				<div><span>학과&nbsp;&nbsp;&nbsp; :&nbsp;&nbsp;&nbsp;</span><span class="shown-input"><%= Department %></span>
 					<select class="hidden-input" id="major" name="major" onchange="ifChange()">
-			            <option value="컴퓨터공학부">컴퓨터공학부</option>
+			            <option value="컴퓨터학부">컴퓨터학부</option>
 			            <option value="전기공학과">전기공학과</option>
 			            <option value="전자공학부">전자공학부</option>
 			        </select>

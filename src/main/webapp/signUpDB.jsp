@@ -32,9 +32,11 @@
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
+
 	
 	//./로 이동
-	response.sendRedirect("./");
+	out.println("<script>alert('회원가입이 완료되었습니다.');</script>");
+	out.println("<script>location.href='./';</script>");
 %>
 </body>
 </html>

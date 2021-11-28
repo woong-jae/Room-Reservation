@@ -129,6 +129,17 @@
 			System.err.println("error = " + e.getMessage());
 		}
 	}
+	
+	public void printReserveCancelBtn(String time, javax.servlet.jsp.JspWriter out) throws ServletException {
+		try {
+			if (Integer.valueOf(StartTime) - Integer.valueOf(time) > 0)
+				out.println("<td><button onclick='openReserveCancelModal("+RoomNum+", "+StartTime+");'>예약취소</button></td>");
+			else 
+				out.println("<td></td>");
+		} catch (Exception e){
+			System.err.println("error = " + e.getMessage());
+		}
+	}
 %>
 <%
 	if(session.getAttribute("userid") != null)
@@ -350,8 +361,10 @@
 					while(rs.next()){
 						String Rdate = "";
 						count += 1;
+						RoomNum = rs.getString(1);
+						StartTime = rs.getString(4);
 						out.println("<tr class='reserve-item'>");
-						out.println("<td>"+rs.getString(1)+"("+rs.getString(2)+")</td>");
+						out.println("<td>"+RoomNum+"("+rs.getString(2)+")</td>");
 						for(int i=3;i<=6;i++) {
 							if(i == 6) {
 								Rdate = rs.getString(i).substring(0, 10);
@@ -359,10 +372,12 @@
 							}
 							else out.println("<td>"+rs.getString(i)+"</td>");
 						}
+						
+						
 						RatingId = rs.getString(7);
 						// 예약 날짜가 지난 것만 평가할 수 있게 함
 						LocalDateTime now = LocalDateTime.now();
-						String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+						String date = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 						if (Integer.valueOf(date.substring(0, 4)) - Integer.valueOf(Rdate.substring(0, 4)) > 0)
 							printRatingBtn(out);
 						else if (Integer.valueOf(date.substring(0, 4)) - Integer.valueOf(Rdate.substring(0, 4)) == 0)
@@ -372,11 +387,11 @@
 								if (Integer.valueOf(date.substring(8, 10)) - Integer.valueOf(Rdate.substring(8, 10)) > 0)
 									printRatingBtn(out);
 								else
-									out.println("<td></td>");
+									printReserveCancelBtn(date.substring(11, 13)+date.substring(14, 16), out);
 							else
-								out.println("<td></td>");
+								printReserveCancelBtn(date.substring(11, 13)+date.substring(14, 16), out);
 						else
-							out.println("<td></td>");
+							printReserveCancelBtn(date.substring(11, 13)+date.substring(14, 16), out);
 						
 						out.println(" </tr>");
 					}
@@ -397,6 +412,7 @@
 			%>
 				</tbody>
 			</table>
+			<jsp:include page="./ReserveCancelModal.jsp" />
 			<%
 			out.println("<div class='indicator'><div class='page-index'>Prev</div>");
 			for(int i=indicatorStart; i<=indicatorEnd; i++){

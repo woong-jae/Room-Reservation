@@ -180,7 +180,6 @@
 		}
 	}
 
-	
    var room = document.getElementsByClassName("room-elem");
    function handleClick(event) {
      if (event.target.classList[1] === "clicked") {

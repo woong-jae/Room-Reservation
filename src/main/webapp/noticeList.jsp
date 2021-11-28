@@ -206,6 +206,7 @@
 		else if(index === "Next"){
 			index = parseInt(notiCurrentPage) + 1;
 		}
+		
 		if(notiKeyword == 'null'){
 			location.href="./notice.jsp?page=" + index;
 		}else{

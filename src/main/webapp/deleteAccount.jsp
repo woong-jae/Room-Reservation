@@ -60,7 +60,7 @@
 	}
 	
 	out.println("<script>alert('탈퇴하셨습니다.');</script>");
-	out.println("<script>location.href='./main.jsp';</script>");
+	out.println("<script>location.href='./';</script>");
 %>
 
 </body>

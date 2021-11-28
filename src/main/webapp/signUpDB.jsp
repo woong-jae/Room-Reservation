@@ -33,8 +33,8 @@
 		e.printStackTrace();
 	}
 	
-	//main.jsp로 이동
-	response.sendRedirect("main.jsp");
+	//./로 이동
+	response.sendRedirect("./");
 %>
 </body>
 </html>

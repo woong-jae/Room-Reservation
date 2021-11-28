@@ -32,7 +32,7 @@
 		
 		if (rs.next()) {
 			maxAvail = rs.getInt(1);
-			// Serializble Isolation Transaction
+			// Serializble Transaction Isolation
 			sql = "LOCK TABLE RESERVES IN EXCLUSIVE MODE";
 			try {
 				stmt.executeQuery(sql);
@@ -82,7 +82,7 @@
 	}
 	else {
 		out.println("<script>alert('로그인을 하십시오.');</script>");
-		out.println("<script>location.href='main.jsp';</script>");
+		out.println("<script>location.href='./';</script>");
 	}
 %>
 </body>

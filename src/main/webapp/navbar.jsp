@@ -113,7 +113,7 @@ nav {
 %>
 
 <nav>
-	<a href="./main.jsp" class="nav-item" id="nav-logo">KNU&nbsp;<span>ROOM</span></a>
+	<a href="./" class="nav-item" id="nav-logo">KNU&nbsp;<span>ROOM</span></a>
 	<div id="nav-wrapper">
 		<a href="./notice.jsp" class="nav-item">공지사항</a>
 		<div class="right-border"></div>

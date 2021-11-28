@@ -14,7 +14,7 @@
 	if(session.getAttribute("userid") != null)
 		session.removeAttribute("userid");
 	//main으로 이동
-	response.sendRedirect("main.jsp");
+	response.sendRedirect("./");
 %>
 </body>
 </html>

@@ -138,7 +138,7 @@
 	}
 	else {
 		out.println("<script>alert('로그인을 하십시오.');</script>");
-		out.println("<script>location.href='main.jsp';</script>");
+		out.println("<script>location.href='./';</script>");
 	}
 	
 	//page 설정

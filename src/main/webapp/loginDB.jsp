@@ -76,7 +76,7 @@
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}
-	response.sendRedirect("main.jsp");
+	response.sendRedirect("./");
 %>
 
 </body>

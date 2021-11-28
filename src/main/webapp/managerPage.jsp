@@ -117,7 +117,7 @@
 	try {
 		ManagerId = session.getAttribute("managerid").toString();
 	} catch (Exception e) {
-		out.println("<script>location.href='main.jsp';</script>");
+		out.println("<script>location.href='./';</script>");
 	}
 %>
 

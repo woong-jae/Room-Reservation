@@ -418,7 +418,6 @@ span.close:focus {
 			if (<%= uid != null ? "'" + uid + "'" : null %>) {
 				modal.style.display = "block";
 				var content = document.getElementsByClassName("modal-content");
-				/* content[0].getElementsByTagName("p")[0].innerText = "이 시간대에 예약하시겠습니까?"; */
 				if (elem.target.className) {
 					input = elem.target.value;
 				} else {
@@ -426,7 +425,7 @@ span.close:focus {
 				}
 			} else if(<%= mid != null ? "'" + mid + "'" : null %>){
 				window.alert("매니저는 예약 할 수 없습니다.\n사용자 계정으로 로그인 하세요.");
-			}else {
+			} else {
 				window.alert("로그인을 하십시오.");
 				location.href="login.jsp";
 			}

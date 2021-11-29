@@ -64,7 +64,7 @@
 <div id="title">문의사항</div>
 <div style="display:flex;justify-content: center;align-items: flex-end;">
 	<form method="get" action="./report.jsp" id="search">
-		<input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+		<input id="report-search" name="keyword" type="text" placeholder="검색어를 입력해주세요">
 		<button type="submit">검색</button>
 	</form>
 	<button id="write" onclick="openModal();">문의</button>

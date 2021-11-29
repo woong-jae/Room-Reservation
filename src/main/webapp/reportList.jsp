@@ -175,6 +175,11 @@
 	const maxPage = <%= maxPage %>;
 	const keyword = '<%= keyword %>';
 	
+	if(keyword !== 'null'){
+		const reportSearchBox = document.getElementById('report-search');
+		reportSearchBox.setAttribute('value', keyword);
+	}
+	
 	//데이터가 없을 경우 prev, next 버튼에 Listener 제거
 	if(maxPage === 0){
 		cols[0].removeEventListener("click" , paging , false );

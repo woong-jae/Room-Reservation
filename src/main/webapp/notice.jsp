@@ -66,7 +66,7 @@
 <div id="title">공지사항</div>
 <div style="display:flex; justify-content: center; align-items: flex-end;">
 	<form method="get" action="./notice.jsp" id="search">
-		<input name="notiKeyword" type="text" placeholder="검색어를 입력해주세요">
+		<input id="noti-search" name="notiKeyword" type="text" placeholder="검색어를 입력해주세요">
 		<button type="submit">검색</button>
 	</form>
 	<button id="write" onclick="openModal();">작성</button>

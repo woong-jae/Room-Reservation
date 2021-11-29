@@ -169,6 +169,11 @@
 	const notiMaxPage = <%= notiMaxPage %>;
 	const notiKeyword = '<%= notiKeyword %>';
 	
+	if(notiKeyword !== 'null'){
+		const notiSearchBox = document.getElementById('noti-search');
+		notiSearchBox.setAttribute('value', notiKeyword);
+	}
+	
 	//데이터가 없을 경우 prev, next 버튼에 Listener 제거
 	if(notiMaxPage === 0){
 		cols[0].removeEventListener("click" , paging , false );

@@ -42,8 +42,8 @@ https://www.youtube.com/watch?v=gGVNSLJ5zU0
 
 ## Contributor
 
-[KingDonggyu](https://github.com/KingDonggyu)
+[김동규](https://github.com/KingDonggyu)
 
-[woong-jae](https://github.com/woong-jae)
+[이장훈](https://github.com/bh2980)
 
-[bh2980](https://github.com/bh2980)
+[정재웅](https://github.com/woong-jae)

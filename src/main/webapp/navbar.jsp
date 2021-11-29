@@ -130,7 +130,15 @@ nav {
 		<div>
 			<div class="nav-item" id="nav-login" style="z-index: 2;" onclick="showhide()"><%= id %> ▼</div>
 			<div id="menu" class="menu hidden">
+				<%
+				if(session.getAttribute("managerid") == null){
+				%>
 				<div><a class="menu-item" href="./myPage.jsp">내 정보</a></div>
+				<%
+				}else{
+				%>
+				<div><a class="menu-item" href="./myPage.jsp">관리</a></div>
+				<%} %>
 				<div style="width:35px; margin-left:32.5px; border-bottom:1px solid #d0d0d0"></div>
 				<div><a class="menu-item" href="./logout.jsp">로그아웃</a></div>
 			</div>

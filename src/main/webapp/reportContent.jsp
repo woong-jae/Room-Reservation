@@ -96,7 +96,7 @@
 	try{
 		rs = stmt.executeQuery(sql);
 		rs.next();
-		ReportUid = rs.getString(1);
+		ReportUid = rs.getString(2);
 		RTitle = rs.getString(3);
 		RContent = rs.getString(4);
 		RTime = rs.getString(5);

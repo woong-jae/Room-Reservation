@@ -172,7 +172,7 @@ button.panel-item:hover {
 }
 .modal-btn {
 	margin-left: 8px;
-    width: 50px;
+    width: 52px;
     font-size: 1.1em;
 }
 /* The Close Button */

@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ include file="./connectDB.jsp" %>
+<style>
+	#reserve-cancel {
+	    display: none; /* Hidden by default */
+	    position: fixed; /* Stay in place */
+	    z-index: 1; /* Sit on top */
+	    left: 0;
+	    top: 0;
+	    width: 100%; /* Full width */
+	    height: 100%; /* Full height */
+	    overflow: auto; /* Enable scroll if needed */
+	    background-color: rgb(0,0,0); /* Fallback color */
+	    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	}
+</style>
 <script>
 	function openReserveCancelModal(ReserveRno, StartTime){
 		document.getElementById("reserve-cancel").style.display = 'block';
@@ -39,7 +53,7 @@
 %>
 
 
-<div id="reserve-cancel" class="modal">
+<div id="reserve-cancel">
   <form class="modal-content" method="get" action="">
         <p style="text-align: center;"><span style="font-size: 20pt;">
         	<b><span style="font-size: 14pt;">해당 예약을 정말로 취소하시겠습니까?</span></b></span>

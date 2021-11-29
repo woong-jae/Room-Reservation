@@ -165,7 +165,7 @@
 					<button class="manage-room-insert" onclick="openManageModal('timeline-insert');">시간대 추가</button>
 					<button class="manage-room-delete" onclick="openManageModal('timeline-delete');">시간대 삭제</button>
 				</div>
-				<jsp:include page="./RoomManageModal.jsp" />
+				<jsp:include page="./roomManageModal.jsp" />
 			</div>
 		</div>
 	</div>

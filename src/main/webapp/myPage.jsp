@@ -412,7 +412,7 @@
 			%>
 				</tbody>
 			</table>
-			<jsp:include page="./ReserveCancelModal.jsp" />
+			<jsp:include page="./reserveCancelModal.jsp" />
 			<%
 			out.println("<div class='indicator'><div class='page-index'>Prev</div>");
 			for(int i=indicatorStart; i<=indicatorEnd; i++){

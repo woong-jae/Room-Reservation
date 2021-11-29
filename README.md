@@ -4,6 +4,8 @@
 
 경북대학교 학생을 대상으로 한 가상 건물의 강의실을 예약을 통해 이용할 수 있도록 하는 웹서비스.
 
+![image](https://user-images.githubusercontent.com/33220404/143905003-a24d06f0-64fb-48cf-ad3a-3f6c88df99c0.png)
+
 ## Environment
 
 - JavaSE-16 (jre)

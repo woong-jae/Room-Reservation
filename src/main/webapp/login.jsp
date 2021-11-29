@@ -123,7 +123,7 @@
     		display:none
     	}
     	
-    	.signup-link{
+    	#signup-link{
     		text-align:center;
     	}
     	
@@ -168,7 +168,7 @@
 				    </div>
 			    </div>
 		    </form>
-		    <p class="signup-link">계정이 없으신가요? <a style="margin:0 auto;" href="./signUp.jsp">회원가입</a></p>
+		    <p id="signup-link">계정이 없으신가요? <a id="link" style="margin:0 auto;" href="./signUp.jsp">회원가입</a></p>
 		</div>
 	</div>
 <%@ include file="./footer.jsp" %>
@@ -178,11 +178,15 @@
 		const title = document.getElementById("title");
 		const userRadio = document.getElementById("user");
 		const managerRadio = document.getElementById("manager");
+		const signUpLink = document.getElementById("signup-link");
+		const link= "계정이 없으신가요? <a style='margin:0 auto;' href='./signUp.jsp'>회원가입</a>";
+		
 		if(toggle.classList.value === "toggle-circle"){
 			title.innerText = "Manager";
 			userRadio.checked = false;
 			managerRadio.checked = true;
-			toggle.classList.toggle('toggle-forwrad')
+			toggle.classList.toggle('toggle-forwrad');
+			signUpLink.innerHTML="매니저님 안녕하세요.";
 		}
 		else if(toggle.classList.value === "toggle-backward toggle-circle"){
 			title.innerText = "Manager";
@@ -190,12 +194,14 @@
 			managerRadio.checked = true;
 			toggle.classList.toggle('toggle-forwrad');
 			toggle.classList.toggle('toggle-backward');
+			signUpLink.innerHTML="매니저님 안녕하세요.";
 		}else{
 			title.innerText = "Login";
 			userRadio.checked = true;
 			managerRadio.checked = false;
 			toggle.classList.toggle('toggle-forwrad');
 			toggle.classList.toggle('toggle-backward');
+			signUpLink.innerHTML=link;
 		}
 		toggle.classList.toggle('toggle-circle');
 		toggle.classList.toggle('toggle-circle-click');

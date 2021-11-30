@@ -46,8 +46,8 @@ git clone https://github.com/woong-jae/STT-Evaluation.git
    Phase4 우클릭 Properties -> Project Facets에서
    Dynamic Web Module (버전은 Version 3.1), Java 체크 후 Apply ans Close
    
-2-1. Run As Server 클릭 시 Tomcat Server가 뜨지 않을 경우
-   이클립스 콘솔창 출력 부분의 Servers탭 -> Tomcat v8.5 Server at localhost 우클릭 -> Add and Remove -> Phase4 클릭 -> Add -> Finish
+   - Run As Server 클릭 시 Tomcat Server가 뜨지 않을 경우
+      이클립스 콘솔창 출력 부분의 Servers탭 -> Tomcat v8.5 Server at localhost 우클릭 -> Add and Remove -> Phase4 클릭 -> Add -> Finish
 
 ## Demo
 

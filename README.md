@@ -38,6 +38,20 @@ git clone https://github.com/woong-jae/STT-Evaluation.git
 
 4. `http://localhost:8080/Phase4/index.jsp`로 접속
 
+### When Running Problems
+
+1. Phase4 우클릭 Properties 
+    > Java Build Path에서 ojdbc8.jar 위치 Edit으로 자신의 컴퓨터 환경에 맞도록 설정
+   
+2. Run As Server가 뜨지 않은 경우
+   Phase4 우클릭 Properties > Project Facets에서
+   Dynamic Web Module (버전은 Version 3.1), Java 체크 후 Apply ans Close
+   
+2-1. Run As Server 클릭 시 Tomcat Server가 뜨지 않을 경우
+   이클립스 콘솔창 출력 부분의 Servers탭 
+    > Tomcat v8.5 Server at localhost 우클릭
+    > Add and Remove > Phase4 클릭 > Add > Finish
+
 ## Demo
 
 https://www.youtube.com/watch?v=gGVNSLJ5zU0

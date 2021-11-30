@@ -43,8 +43,8 @@ git clone https://github.com/woong-jae/STT-Evaluation.git
 1. Phase4 우클릭 Properties -> Java Build Path에서 ojdbc8.jar 위치 Edit으로 자신의 컴퓨터 환경에 맞도록 설정
    
 2. Run As Server가 뜨지 않은 경우
-   Phase4 우클릭 Properties -> Project Facets에서
-   Dynamic Web Module (버전은 Version 3.1), Java 체크 후 Apply ans Close
+
+   Phase4 우클릭 Properties -> Project Facets에서 Dynamic Web Module (버전은 Version 3.1), Java 체크 후 Apply ans Close
    
    - Run As Server 클릭 시 Tomcat Server가 뜨지 않을 경우
  
